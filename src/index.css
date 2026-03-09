@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import './styles/cls-prevention.css'; /* Import CLS prevention styles */
+
+/* Inlined Critical Styles for Hero - Duplicated here for fallback/completeness */
+.hero-heading {
+  @apply text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white pb-3 leading-tight;
+}
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --radius: 0.5rem;
+  }
+
+  /* Task 2: Font Display Swap & Metric Normalization */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: local('Inter');
+  }
+
+  /* Task 5: Animation Optimizations */
+  .transition-all {
+    transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Task 4: Font Loading Optimization */
+  h1, h2, h3, h4, h5, h6, p, span, div, a {
+    font-display: swap;
+  }
+}
+
+.glass-light {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl;
+  contain: paint; /* Task 5 */
+}
+
+.glass-strong {
+  @apply bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl;
+  contain: paint; /* Task 5 */
+}
+
+/* Task 5: Use transform for animations instead of layout properties */
+.hover-scale {
+  @apply transition-transform duration-300;
+  will-change: transform;
+}
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Task 6: Reserved Space for Nav Items */
+.nav-item-container {
+  contain: layout;
+  min-width: 48px;
+  min-height: 48px;
+}

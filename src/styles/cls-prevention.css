@@ -1,0 +1,64 @@
+/* Task 10: CLS Prevention Global Styles */
+/* Force scrollbar to prevent horizontal shift when content changes height */
+html {
+  overflow-y: scroll;
+}
+
+/* Global box-sizing to prevent padding/border shifts */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ensure images have aspect ratio or block layout to prevent collapse */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Reserve space for images if aspect-ratio is supported */
+@supports (aspect-ratio: 1) {
+  img[width][height] {
+    aspect-ratio: attr(width) / attr(height);
+  }
+}
+
+/* Contain layout shifts within components */
+.contain-layout {
+  contain: layout style;
+}
+
+.contain-paint {
+  contain: layout paint style;
+}
+
+.contain-content {
+  contain: content;
+}
+
+/* Fix main wrapper height to prevent footer jumping */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  /* Create a stacking context to isolate layout */
+  isolation: isolate; 
+}
+
+/* Prevent layout thrashing from animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Ensure text doesn't cause shifts during font load fallback */
+body {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}

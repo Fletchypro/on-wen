@@ -1,0 +1,97 @@
+/* Critical styles for Hero Section LCP */
+/* Task 7: CLS Prevention Rules */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-y: scroll; /* Prevent scrollbar shift */
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Task 2: Font Display Swap */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: local('Inter');
+}
+
+.hero-heading {
+  font-size: 3rem; /* text-5xl */
+  line-height: 1.1;
+  font-weight: 800; /* font-extrabold */
+  letter-spacing: -0.025em; /* tracking-tight */
+  color: #ffffff;
+  padding-bottom: 0.75rem; /* pb-3 */
+  margin: 0;
+  display: block;
+  opacity: 1; /* Ensure visible immediately */
+  transform: none; /* No initial transform */
+  /* Normalize font metrics */
+  font-size-adjust: 0.5;
+}
+
+@media (min-width: 640px) {
+  .hero-heading {
+    font-size: 3.75rem; /* sm:text-6xl */
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-heading {
+    font-size: 6rem; /* md:text-8xl */
+  }
+}
+
+.hero-subtext {
+  margin-top: 1.5rem;
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  contain: layout; /* Prevent shifts */
+}
+
+@media (min-width: 640px) {
+  .hero-subtext {
+    font-size: 1.25rem; /* sm:text-xl */
+  }
+}
+
+.hero-cta {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  min-height: 60px; /* Reserve space for button */
+  contain: layout;
+}
+
+.hero-wrapper {
+  padding-top: 8rem;
+  padding-bottom: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  contain: content; /* CSS Containment for performance */
+  min-height: 80vh; /* Reserve approximate height */
+}
+
+@media (min-width: 640px) {
+  .hero-wrapper {
+    padding-top: 12rem;
+  }
+}

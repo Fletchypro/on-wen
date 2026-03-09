@@ -1,0 +1,36 @@
+/* Optimized background image classes */
+
+.bg-optimized {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: background-image 0.3s ease-in-out;
+}
+
+/* Fallback/Loading state color */
+.bg-loading {
+    background-color: rgba(124, 58, 237, 0.1);
+}
+
+/* Responsive Background Helpers - placeholder logic
+   In a real implementation, you would generate classes like .bg-hero-sm, .bg-hero-md 
+   referencing specific optimized image URLs for breakpoints. 
+*/
+
+@media (max-width: 480px) {
+    .responsive-bg {
+        /* Mobile specific background rules could go here */
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .responsive-bg {
+        /* Tablet specific background rules */
+    }
+}
+
+@media (min-width: 769px) {
+    .responsive-bg {
+        /* Desktop specific background rules */
+    }
+}
