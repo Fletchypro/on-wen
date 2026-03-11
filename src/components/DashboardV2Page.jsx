@@ -42,7 +42,7 @@ const DashboardV2Page = ({
   };
 
   const Panel = ({ children, className, panelRef }) => (
-    <div ref={panelRef} className={`flex-shrink-0 w-full snap-center h-full p-4 md:p-6 ${className}`}>
+    <div ref={panelRef} className={`flex-shrink-0 w-full min-w-0 snap-center h-full px-4 py-4 sm:px-5 md:px-6 md:py-6 ${className ?? ''}`}>
       <div className="h-full flex flex-col">
         {children}
       </div>
@@ -66,12 +66,12 @@ const DashboardV2Page = ({
       </Helmet>
       
       <motion.div
-        className="flex flex-col h-full overflow-hidden"
+        className="flex flex-col h-full overflow-hidden w-full md:max-w-5xl md:mx-auto"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        <div ref={scrollContainerRef} className="flex-grow flex overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div ref={scrollContainerRef} className="flex-grow flex overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:rounded-2xl">
           <Panel className="w-full">
             <FriendsEventFeed 
               onViewUserProfile={onViewUserProfile} 

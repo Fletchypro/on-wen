@@ -10,7 +10,7 @@ const InfoPageHeader = () => {
   const homeLink = user ? '/dashboard' : '/';
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-20 h-20 flex justify-between items-center px-6 bg-black/20 backdrop-blur-lg border-b border-white/10 ios-safe-top">
+    <header className="sticky top-0 left-0 right-0 z-20 h-16 sm:h-20 flex justify-between items-center px-4 sm:px-6 bg-black/20 backdrop-blur-lg border-b border-white/10 ios-safe-top">
       <Link to="/">
         <div className="relative">
           <div className="absolute -inset-2 bg-gradient-to-br from-purple-600 to-pink-500 opacity-20 blur-xl rounded-full" />

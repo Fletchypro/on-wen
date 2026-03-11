@@ -74,9 +74,7 @@ const EventCard = ({
       layout
       transition={{ type: 'spring', stiffness: 400, damping: 40 }}
       // Task 4: CSS Containment & Fixed Min-Height
-      className={`relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer bg-white/10 backdrop-blur-xl border border-white/50 ${getCardSizeClass(
-        event.priority
-      )} min-h-[160px] contain-layout`}
+      className={cn("relative overflow-hidden rounded-2xl shadow-card group cursor-pointer bg-white/10 backdrop-blur-xl border border-white/50", getCardSizeClass(event.priority), "min-h-[160px] contain-layout")}
       style={{
           contain: 'layout paint', // Explicit containment
           willChange: 'transform, opacity' // Task 5: Optimized will-change

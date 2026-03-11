@@ -11,7 +11,7 @@ import React from 'react';
         <div className="flex flex-col h-full text-white immersive-bg">
           {!user && <InfoPageHeader />}
           <motion.main
-            className="flex-grow w-full px-6 sm:px-8 pt-24 sm:pt-32 pb-16 overflow-y-auto"
+            className="flex-grow w-full px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-32 pb-24 sm:pb-16 overflow-y-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

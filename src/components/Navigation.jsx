@@ -11,7 +11,7 @@ const DesktopNavItem = ({ icon: Icon, isActive, onClick, notificationCount = 0, 
       <motion.button
         onClick={onClick}
         // Task 6: Fixed height/width (nav-item-container class from CSS)
-        className="relative flex items-center justify-center h-12 w-12 rounded-full transition-colors group contain-layout"
+        className="relative flex items-center justify-center h-12 w-12 min-h-[44px] min-w-[44px] rounded-full transition-colors group contain-layout focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
         whileHover={{ scale: 1.06, backgroundColor: 'rgba(255,255,255,0.08)' }}
         whileTap={{ scale: 0.95 }}
         style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
@@ -51,7 +51,7 @@ const MobileNavItem = ({ icon: Icon, isActive, onClick, notificationCount = 0, l
       <motion.button
         onClick={onClick}
         // Task 6: Fixed dimensions
-        className="relative flex items-center justify-center h-full w-full flex-col transition-colors group contain-layout"
+        className="relative flex items-center justify-center h-full w-full min-h-[44px] flex-col transition-colors group contain-layout focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
         whileTap={{ scale: 0.95 }}
       >
         <Icon
@@ -91,7 +91,7 @@ const AddEventButton = ({ onClick, isDesktop }) => (
     transition={{ type: 'spring', stiffness: 300, damping: 15 }}
     style={{ willChange: 'transform' }}
   >
-    <Plus size={28} className="md:size-32" />
+    <Plus className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2.5} />
   </motion.button>
 );
 
@@ -174,16 +174,16 @@ const DesktopTopToolbar = ({
 
   return (
     <header
-      className="hidden md:block fixed top-6 left-0 right-0 z-50 px-4"
+      className="hidden md:flex md:justify-center md:fixed md:top-0 md:left-0 md:right-0 md:z-50 md:pt-4 md:px-4"
       style={{
         transform: 'translateZ(0)',
         willChange: 'transform',
         backfaceVisibility: 'hidden',
-        contain: 'layout paint' // Task 6: Containment
+        contain: 'layout paint'
       }}
     >
       <div
-        className="relative mx-auto max-w-5xl h-16 mt-12 rounded-b-2xl glass-strong nav-glass"
+        className="relative w-full max-w-5xl h-16 rounded-2xl glass-strong nav-glass shadow-card"
         style={{
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden',
@@ -192,7 +192,7 @@ const DesktopTopToolbar = ({
           contain: 'layout paint'
         }}
       >
-        <div className="flex h-full items-center justify-between px-4">
+        <div className="flex h-full items-center justify-between px-4 md:px-6">
           <div className="flex items-center gap-3">
             {/* Removed the logo and text here */}
           </div>
@@ -215,7 +215,7 @@ const DesktopTopToolbar = ({
               <TooltipTrigger asChild>
                 <motion.button
                   onClick={() => handleActionClick('search')}
-                  className="h-12 w-12 rounded-full flex items-center justify-center transition-colors contain-layout"
+                  className="h-12 w-12 min-h-[44px] min-w-[44px] rounded-full flex items-center justify-center transition-colors contain-layout focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                   whileHover={{ scale: 1.06, backgroundColor: 'rgba(255,255,255,0.08)' }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -231,7 +231,7 @@ const DesktopTopToolbar = ({
               <TooltipTrigger asChild>
                 <motion.button
                   onClick={() => handleActionClick('notifications')}
-                  className="h-12 w-12 rounded-full flex items-center justify-center transition-colors contain-layout"
+                  className="h-12 w-12 min-h-[44px] min-w-[44px] rounded-full flex items-center justify-center transition-colors contain-layout focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                   whileHover={{ scale: 1.06, backgroundColor: 'rgba(255,255,255,0.08)' }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -246,7 +246,7 @@ const DesktopTopToolbar = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="contain-layout">
-                  <AddEventButton onClick={() => setCurrentView('add-event')} isDesktop />
+                  <AddEventButton onClick={() => setCurrentView('add-event')} isDesktop={true} />
                 </div>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="bg-gray-800 text-white border-none">

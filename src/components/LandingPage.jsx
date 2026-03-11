@@ -93,19 +93,16 @@ const IphoneMockup = ({ src, alt, rotation, className }) => (
     style={{ transform: `rotate(${rotation}deg)` }}
     whileHover={{ scale: 1.05, y: -10 }}
   >
-    <div className="absolute inset-0 bg-white rounded-[44px] p-1 shadow-lg">
-      <div className="w-full h-full bg-black rounded-[40px] p-2.5 overflow-hidden">
-        <ImageOptimizer
-            src={src}
-            alt={alt}
-            width={280}
-            height={570}
-            className="rounded-[32px]"
-            objectFit="cover"
-        />
-      </div>
+    <div className="absolute inset-0 rounded-[40px] overflow-hidden shadow-xl ring-1 ring-black/20">
+      <ImageOptimizer
+        src={src}
+        alt={alt}
+        width={280}
+        height={570}
+        className="w-full h-full"
+        objectFit="cover"
+      />
     </div>
-    <div className="absolute inset-0 rounded-[44px] ring-1 ring-inset ring-white/10" />
   </motion.div>
 );
 
@@ -190,7 +187,7 @@ const LandingPage = () => {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 left-0 right-0 z-20 h-20 flex justify-between items-center px-6 bg-black/20 backdrop-blur-lg border-b border-white/10 ios-safe-top">
+      <header className="sticky top-0 left-0 right-0 z-20 h-16 sm:h-20 flex justify-between items-center px-4 sm:px-6 bg-black/20 backdrop-blur-lg border-b border-white/10 ios-safe-top">
         <Link to="/">
           <div className="relative w-24 sm:w-28 h-auto">
              <ImageOptimizer
@@ -237,7 +234,7 @@ const LandingPage = () => {
 
             <section
               id="features"
-              className="container mx-auto px-4 py-24 sm:py-32 text-center"
+              className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center"
             >
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">All The Tools You Need To Plan Visually</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -257,7 +254,7 @@ const LandingPage = () => {
 
             <section
               id="how-it-works"
-              className="container mx-auto px-4 py-24 sm:py-32 text-center"
+              className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center"
             >
               <div className="grid grid-cols-1 gap-16 items-center justify-items-center">
                 <div className="text-center">
@@ -281,7 +278,7 @@ const LandingPage = () => {
 
             <section
               id="testimonials"
-              className="container mx-auto px-4 py-24 sm:py-32 text-center"
+              className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center"
             >
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">Loved by Visual Planners Everywhere</h2>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

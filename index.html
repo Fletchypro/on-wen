@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
 		<meta name="generator" content="Hostinger Horizons" />
 		
 		<!-- Primary Meta Tags -->
@@ -53,6 +53,15 @@
 	</head>
 	<body>
 		<div id="root"></div>
+		<script>
+			// If React hasn't mounted after 5s, show a message (e.g. JS error or stuck loading)
+			setTimeout(function() {
+				var root = document.getElementById('root');
+				if (root && root.children.length === 0) {
+					root.innerHTML = '<div style="padding:24px;text-align:center;color:#94a3b8">Loading… If this persists, open DevTools (F12) → Console and check for errors.</div>';
+				}
+			}, 5000);
+		</script>
 		<script type="module" src="/src/main.jsx" defer></script>
 	</body>
 </html>

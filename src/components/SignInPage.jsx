@@ -232,13 +232,13 @@ const SignInPage = () => {
                         />
                     </Link>
                 </div>
-                <div className="bg-black/40 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 shadow-2xl shadow-purple-900/20">
+                <div className="bg-black/40 backdrop-blur-2xl p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl shadow-purple-900/20">
                     <div className="text-center mb-8">
                         <motion.h1
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="text-4xl font-bold text-white tracking-tight"
+                            className="text-3xl sm:text-4xl font-bold text-white tracking-tight"
                         >Welcome Back</motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: -10 }}

@@ -307,7 +307,7 @@ const FriendsPage = ({ onRequestsHandled, onSelectConversation, onViewFriendCale
 
   return (
     <motion.div 
-      className="p-4 md:p-6 pb-6 space-y-6 max-w-5xl mx-auto h-full flex flex-col text-white"
+      className="p-4 md:p-6 pb-24 md:pb-6 space-y-6 max-w-5xl mx-auto w-full h-full flex flex-col text-white"
       variants={pageVariants}
       initial="hidden"
       animate="visible"

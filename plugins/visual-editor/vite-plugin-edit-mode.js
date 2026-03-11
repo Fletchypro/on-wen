@@ -10,7 +10,7 @@ export default function inlineEditDevPlugin() {
 	return {
 		name: 'vite:inline-edit-dev',
 		apply: 'serve',
-		transformIndexHtml() {
+		transformIndexHtml(_html, _ctx) {
 			const scriptPath = resolve(__dirname, 'edit-mode-script.js');
 			const scriptContent = readFileSync(scriptPath, 'utf-8');
 

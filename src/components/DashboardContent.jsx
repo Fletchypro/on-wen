@@ -48,7 +48,7 @@ const DashboardContent = ({ events, setEvents, deleteEvent, onEditEvent, imageOp
     if (filteredEvents && filteredEvents.length > 0) {
       return (
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2" /* Changed gap-4 to gap-2 */
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
           variants={{
             hidden: { opacity: 0 },
             show: {
@@ -96,7 +96,7 @@ const DashboardContent = ({ events, setEvents, deleteEvent, onEditEvent, imageOp
             <title>My Events - Wen</title>
             <meta name="description" content="Manage your personal calendar, discover events, and connect with friends in Wen." />
           </Helmet>
-          <div className="h-full overflow-y-auto pb-24 md:pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="h-full overflow-y-auto overflow-x-hidden pb-24 md:pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="mb-4 relative z-10">
               <HomeHeader
                 onFilterToggle={() => setIsFiltersVisible(!isFiltersVisible)}

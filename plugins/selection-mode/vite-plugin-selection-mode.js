@@ -10,7 +10,7 @@ export default function selectionModePlugin() {
 		name: 'vite:selection-mode',
 		apply: 'serve',
 
-		transformIndexHtml() {
+		transformIndexHtml(_html, _ctx) {
 			const scriptPath = resolve(__dirname, 'selection-mode-script.js');
 			const scriptContent = readFileSync(scriptPath, 'utf-8');
 

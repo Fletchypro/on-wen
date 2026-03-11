@@ -166,7 +166,7 @@ if (window.navigation && window.self !== window.top) {
 
 const addTransformIndexHtml = {
 	name: 'add-transform-index-html',
-	transformIndexHtml(html) {
+	transformIndexHtml(html, _ctx) {
 		const tags = [
 			{
 				tag: 'script',

@@ -3,8 +3,6 @@ import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { startOfDay, parseISO } from 'date-fns';
-import { onLCP, onCLS, onFCP, onTTFB } from 'web-vitals';
-
 import Navigation from '@/components/Navigation';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useEventData } from '@/hooks/useEventData';
@@ -20,7 +18,6 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { cn } from '@/lib/utils';
 import CompleteProfileModal from '@/components/CompleteProfileModal';
 import { Loader2 } from 'lucide-react';
-import PerformanceDashboard from '@/components/PerformanceDashboard';
 
 // Lazy loaded critical components for route-based code splitting
 const DashboardV2Page = lazy(() => import('@/components/DashboardV2Page'));
@@ -235,11 +232,11 @@ const AppContent = () => {
         />
       )}
       <main className={cn(
-        "flex-1 flex flex-col overflow-hidden",
+        "flex-1 flex flex-col overflow-hidden min-h-0 w-full",
         user && "pb-24 md:pb-0",
         isChatPage && "pb-0",
         isSettingsPage && "overflow-y-auto",
-        user && "md:pt-28"
+        user && "md:pt-24"
       )}>
 
         <Suspense fallback={<LoadingFallback />}>
@@ -291,8 +288,8 @@ const AuthLayout = ({ children }) => {
         <div className="fixed inset-0 w-full h-full overflow-y-auto bg-background">
             <img alt="Abstract background with swirling colors" className="fixed inset-0 h-full w-full object-cover -z-10" src="https://images.unsplash.com/photo-1685825552564-a419152cbf46" loading="lazy" />
             <div className="fixed inset-0 bg-black/60 backdrop-blur-xl -z-10"></div>
-            <div className="min-h-full flex flex-col justify-center items-center p-4 py-16 md:p-8 md:py-24">
-                <div className="w-full max-w-md">
+            <div className="min-h-full flex flex-col justify-center items-center p-4 py-12 sm:py-16 md:p-8 md:py-24 w-full">
+                <div className="w-full max-w-md px-1 sm:px-0">
                     {children}
                 </div>
             </div>
@@ -306,16 +303,6 @@ function App() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const { user } = useAuth();
-  
-  // Task 9: Performance Monitoring
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      onLCP((metric) => console.log('[Web Vitals] LCP:', metric));
-      onCLS((metric) => console.log('[Web Vitals] CLS:', metric));
-      onFCP((metric) => console.log('[Web Vitals] FCP:', metric));
-      onTTFB((metric) => console.log('[Web Vitals] TTFB:', metric));
-    }
-  }, []);
   
   const handleMessagesRead = useCallback(async () => {
     if (!user) return;
@@ -376,8 +363,6 @@ function App() {
         </Suspense>
       </AnimatePresence>
       
-      {/* Task 9: Performance Dashboard in Dev Mode */}
-      {import.meta.env.DEV && <PerformanceDashboard />}
     </div>
    </>
   );

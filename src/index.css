@@ -28,8 +28,10 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 270 70% 70%;
     --radius: 0.5rem;
+    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.15);
+    --shadow-elevated: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
   }
 
   /* Task 2: Font Display Swap & Metric Normalization */
@@ -89,4 +91,24 @@
   contain: layout;
   min-width: 48px;
   min-height: 48px;
+}
+
+/* Safe area insets for notched devices (mobile-first) */
+.ios-safe-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+.ios-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Respect reduced motion preference (scoped to our utilities only) */
+@media (prefers-reduced-motion: reduce) {
+  .transition-all,
+  .hover-scale {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hover-scale:hover {
+    transform: none;
+  }
 }

@@ -1,11 +1,26 @@
 /* eslint-disable no-restricted-globals */
 
 // Cache version - update this to invalidate old caches
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 const GOOGLE_STORAGE_CACHE = `gstorage-${CACHE_VERSION}`;
+
+// Image hostnames we cache aggressively (cache-first after first load)
+const IMAGE_CACHE_HOSTS = [
+  'storage.googleapis.com',
+  'horizons-cdn.hostinger.com',
+  'images.unsplash.com',
+  'supabase.co',
+  'ejfhgpdtndpxghdzflpt.supabase.co'
+];
+function isCachedImageHost(url) {
+  try {
+    const host = new URL(url).hostname;
+    return IMAGE_CACHE_HOSTS.some((h) => host === h || host.endsWith('.' + h));
+  } catch (_) { return false; }
+}
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [
@@ -56,45 +71,38 @@ self.addEventListener('fetch', (event) => {
   // 2. Ignore chrome-extension schemes or other non-http protocols
   if (!url.protocol.startsWith('http')) return;
 
-  // 3. New Strategy: Stale-While-Revalidate for Google Storage Images
-  // Matches storage.googleapis.com domain
-  if (url.hostname === 'storage.googleapis.com' && url.pathname.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i)) {
-    event.respondWith(
-      caches.open(GOOGLE_STORAGE_CACHE).then(async (cache) => {
-        const cachedResponse = await cache.match(event.request);
-        
-        // Fetch fresh content in the background to update cache
-        const fetchPromise = fetch(event.request).then((networkResponse) => {
-          if (networkResponse.ok) {
-            cache.put(event.request, networkResponse.clone());
+  // 3. Cache-first for known image hosts (Supabase, Hostinger CDN, Unsplash, Google Storage)
+  // Once cached, serve from cache immediately for fast repeat loads; fetch in background to refresh
+  if (event.request.destination === 'image' || url.pathname.match(/\.(png|jpg|jpeg|gif|webp|svg|avif)(\?.*)?$/i)) {
+    if (isCachedImageHost(url.href)) {
+      event.respondWith(
+        caches.open(IMAGE_CACHE).then(async (cache) => {
+          const cached = await cache.match(event.request);
+          if (cached) {
+            // Background revalidate (don't wait)
+            fetch(event.request).then((res) => {
+              if (res && res.ok) cache.put(event.request, res);
+            }).catch(() => {});
+            return cached;
           }
-          return networkResponse;
-        }).catch(() => {
-           // Network failure - silently fail update, rely on cache if available
-           return null;
-        });
-
-        // Return cached response immediately if available, otherwise wait for network
-        return cachedResponse || fetchPromise;
-      })
-    );
-    return;
+          const net = await fetch(event.request).catch(() => null);
+          if (net && net.ok) cache.put(event.request, net.clone());
+          return net;
+        })
+      );
+      return;
+    }
   }
 
-  // 4. Strategy: Stale-While-Revalidate for other Images (e.g. Supabase storage)
+  // 4. Stale-while-revalidate for all other images (any host)
   if (event.request.destination === 'image') {
     event.respondWith(
       caches.open(IMAGE_CACHE).then(async (cache) => {
         const cachedResponse = await cache.match(event.request);
         const fetchPromise = fetch(event.request).then((networkResponse) => {
-          if (networkResponse.ok) {
-            cache.put(event.request, networkResponse.clone());
-          }
+          if (networkResponse.ok) cache.put(event.request, networkResponse.clone());
           return networkResponse;
-        }).catch(() => {
-             // Fallback or just fail for images
-             return null;
-        });
+        }).catch(() => null);
         return cachedResponse || fetchPromise;
       })
     );

@@ -2,7 +2,7 @@ export default function iframeRouteRestorationPlugin() {
   return {
     name: 'vite:iframe-route-restoration',
     apply: 'serve',
-    transformIndexHtml() {
+    transformIndexHtml(_html, _ctx) {
       const script = `
       const ALLOWED_PARENT_ORIGINS = [
           "https://horizons.hostinger.com",
