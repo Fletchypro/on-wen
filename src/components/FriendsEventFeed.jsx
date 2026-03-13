@@ -178,6 +178,18 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
   const handleAddExternalToCalendar = useCallback(
     async (externalEvent) => {
       if (!addEvent || !externalEvent?.isExternal) return;
+      const externalId = externalEvent.id; // e.g. "tm-123" or "ext-456" – same for everyone who adds this event
+      try {
+        const { data: joinData } = await supabase.rpc('join_external_event', { p_external_id: externalId });
+        if (joinData?.status === 'joined') {
+          if (fetchCalendarEvents) fetchCalendarEvents();
+          if (fetchFeed) fetchFeed();
+          toast({ title: 'Added to your calendar', description: "You're in the same group chat as everyone else who added this event." });
+          return;
+        }
+      } catch (e) {
+        if (import.meta.env.DEV) console.warn('join_external_event:', e);
+      }
       const startDate = externalEvent.date || new Date().toISOString().slice(0, 10);
       const eventData = {
         title: externalEvent.title,
@@ -197,16 +209,13 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
         show_on_feed: false,
         attendees: [],
         tag_id: null,
+        external_id: externalId,
       };
-      try {
-        await addEvent(eventData, [], null);
-        if (fetchCalendarEvents) fetchCalendarEvents();
-        if (fetchFeed) fetchFeed();
-      } catch (err) {
-        console.error('Add external to calendar failed:', err);
-      }
+      await addEvent(eventData, [], null);
+      if (fetchCalendarEvents) fetchCalendarEvents();
+      if (fetchFeed) fetchFeed();
     },
-    [addEvent, fetchCalendarEvents, fetchFeed]
+    [addEvent, fetchCalendarEvents, fetchFeed, toast]
   );
 
   const handleRequestToJoin = async (eventId) => {

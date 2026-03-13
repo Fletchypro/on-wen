@@ -50,8 +50,8 @@ const ConversationList = ({ onSelectConversation, onViewFriendCalendar }) => {
         }
 
         const filteredData = data.filter(convo => {
-            // Hide chats for public events (visibility: 2) from this list
-            if (convo.type === 'group' && convo.event_details?.visibility === 2) {
+            // Only show 1:1 DMs in Messages list. Event group chats are opened from the event detail.
+            if (convo.type === 'group' && convo.event_id) {
                 return false;
             }
             return true;
