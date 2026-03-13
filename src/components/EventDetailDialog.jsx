@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useAnimation, useDragControls } from 'framer-motion';
 import { format, parseISO, isToday, isTomorrow } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
-import { Calendar, Clock, MapPin, Edit, Trash2, Users, X, MoreVertical, UserPlus, Eye, EyeOff, ChevronDown, Minimize, StretchHorizontal, Maximize, MessageCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, Edit, Trash2, Users, X, MoreVertical, UserPlus, Eye, EyeOff, ChevronDown, Minimize, StretchHorizontal, Maximize, MessageCircle, Ticket } from 'lucide-react';
 import { Dialog, DialogContent, DialogOverlay, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -90,18 +90,31 @@ const EventDetailDialog = ({
 
     const fetchEventConversation = useCallback(async () => {
         if (!localEvent?.id) return;
-        const { data, error } = await supabase
+        let { data, error } = await supabase
           .from('conversations')
           .select(`*, event_details:events(*), participants:conversation_participants(user_profiles(*))`)
           .eq('event_id', localEvent.id)
           .single();
 
+        if (error?.code === 'PGRST116') {
+            const { data: convId, error: ensureErr } = await supabase.rpc('ensure_event_conversation', { p_event_id: localEvent.id });
+            if (!ensureErr && convId) {
+                const res = await supabase
+                    .from('conversations')
+                    .select(`*, event_details:events(*), participants:conversation_participants(user_profiles(*))`)
+                    .eq('event_id', localEvent.id)
+                    .single();
+                data = res.data;
+                error = res.error;
+            }
+        }
+
         if (error && error.code !== 'PGRST116') {
             toast({ title: "Error loading chat", description: error.message, variant: "destructive" });
-        } else if(data) {
+        } else if (data) {
             const transformedData = {
                 ...data,
-                participants: data.participants.map(p => p.user_profiles)
+                participants: data.participants?.map(p => p.user_profiles).filter(Boolean) || []
             };
             setEventConversation(transformedData);
         }
@@ -344,8 +357,39 @@ const EventDetailDialog = ({
                                         {localEvent.location && (
                                             <div className="flex items-center gap-2 text-sm mb-4"><MapPin className="w-4 h-4 text-purple-400" /> <span>{localEvent.location}</span></div>
                                         )}
-                                        
-                                        {localEvent.notes && <p className="text-foreground/90 mb-8 whitespace-pre-wrap">{localEvent.notes}</p>}
+
+                                        {(() => {
+                                            let ticketUrl = localEvent.external_url
+                                                || localEvent.notes?.match(/From (?:seatgeek|ticketmaster):\s*(https:\S+)/i)?.[1];
+                                            if (ticketUrl && (ticketUrl.includes('ticketmaster') || ticketUrl.includes('evyy.net'))) {
+                                                try {
+                                                    if (ticketUrl.includes('ticketmaster.com/event/')) {
+                                                        const m = ticketUrl.match(/ticketmaster\.com\/event\/([^/&?]+)/);
+                                                        if (m) ticketUrl = `https://www.ticketmaster.com/event/${m[1]}`;
+                                                    } else if (ticketUrl.includes('evyy.net')) {
+                                                        const u = new URL(ticketUrl);
+                                                        const decoded = u.searchParams.get('u');
+                                                        if (decoded) ticketUrl = decodeURIComponent(decoded);
+                                                    }
+                                                } catch (_) {}
+                                            }
+                                            const notesWithoutTicketLine = ticketUrl && localEvent.notes
+                                                ? localEvent.notes.replace(/From (?:seatgeek|ticketmaster):\s*https:\S+/i, '').trim()
+                                                : localEvent.notes;
+                                            return (
+                                                <>
+                                                    {ticketUrl && (
+                                                        <Button asChild className="mb-4 bg-purple-600 hover:bg-purple-500 text-white font-semibold gap-2">
+                                                            <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
+                                                                <Ticket className="w-4 h-4" />
+                                                                Buy tickets
+                                                            </a>
+                                                        </Button>
+                                                    )}
+                                                    {notesWithoutTicketLine && <p className="text-foreground/90 mb-8 whitespace-pre-wrap">{notesWithoutTicketLine}</p>}
+                                                </>
+                                            );
+                                        })()}
 
                                         <div className="flex items-center justify-between mb-4">
                                             <h3 className="font-semibold text-lg flex items-center gap-2">
@@ -430,7 +474,7 @@ const EventDetailDialog = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                {isAttendee && eventConversation && (
+                                                {(isCreator || isAttendee) && eventConversation && (
                                                     <TooltipProvider>
                                                         <Tooltip>
                                                             <TooltipTrigger asChild>

@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 
-const EventCardActions = ({ event, isCreator, isPublicFeed, onJoinEvent, onRequestToJoin, onResize }) => {
+const EventCardActions = ({ event, isCreator, isPublicFeed, onJoinEvent, onRequestToJoin, onResize, isExternal, onAddToCalendar }) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [joinState, setJoinState] = useState('idle');
@@ -66,7 +66,32 @@ const EventCardActions = ({ event, isCreator, isPublicFeed, onJoinEvent, onReque
     }
   };
 
+  const handleAddToCalendar = async (e) => {
+    e.stopPropagation();
+    if (!onAddToCalendar) return;
+    setJoinState('loading');
+    try {
+      await onAddToCalendar();
+      setJoinState('joined');
+      toast({ title: 'Added!', description: `"${event.title}" is on your calendar.` });
+    } catch (err) {
+      setJoinState('idle');
+      toast({ title: 'Could not add event', description: err?.message || 'Try again.', variant: 'destructive' });
+    }
+  };
+
   const renderJoinButton = () => {
+    if (isExternal && onAddToCalendar) {
+      return (
+        <Button
+          onClick={handleAddToCalendar}
+          disabled={joinState === 'loading' || joinState === 'joined'}
+          className="absolute top-2 right-2 h-7 px-2 text-xs rounded-lg bg-black/50 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+        >
+          {joinState === 'joined' ? <><Check size={14} className="mr-1" /> Added</> : <><Plus size={14} className="mr-1" /> Add to calendar</>}
+        </Button>
+      );
+    }
     if (isPublicFeed && !isCreator && !isAttendee) {
       const viewerRequestStatus = event.viewer_join_request_status;
 

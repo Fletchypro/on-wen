@@ -20,7 +20,9 @@ const EventCard = ({
   isPublicFeed,
   onJoinEvent,
   onRequestToJoin,
-  onResize
+  onResize,
+  isExternal,
+  onAddToCalendar,
 }) => {
   const { user } = useAuth();
   
@@ -86,13 +88,13 @@ const EventCard = ({
           <ImageOptimizer
             src={event.image}
             alt={`Event: ${event.title}`}
-            width={400} // Approximate generic width for card images
-            height={300} // Approximate generic height
+            width={400}
+            height={300}
             className="w-full h-full object-cover transition-all duration-300"
             style={{ objectPosition: event.image_position || '50% 50%' }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            // Task 3: Ensure image optimization properties
-            priority={false} 
+            priority={false}
+            fallbackVariant={isExternal ? 'event' : undefined}
           />
         </div>
       ) : (
@@ -134,6 +136,8 @@ const EventCard = ({
         onJoinEvent={onJoinEvent}
         onRequestToJoin={onRequestToJoin}
         onResize={onResize}
+        isExternal={isExternal}
+        onAddToCalendar={onAddToCalendar}
       />
 
       <div className="absolute bottom-0 left-0 right-0" onClick={onClick}>

@@ -15,8 +15,11 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
     const [isSending, setIsSending] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
     const [imageFile, setImageFile] = useState(null);
+    const [bootCounts, setBootCounts] = useState({});
+    const [isBanned, setIsBanned] = useState(false);
 
     const conversationId = conversation.id;
+    const eventId = conversation.event_id || conversation.event_details?.id;
 
     const scrollToBottomRef = useRef(null);
 
@@ -66,8 +69,32 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
         }
     }, [user]);
 
+    const fetchBootCounts = useCallback(async () => {
+        if (!eventId) return;
+        const { data, error } = await supabase.rpc('get_event_chat_boot_counts', { p_event_id: eventId });
+        if (!error && Array.isArray(data)) {
+            const map = {};
+            data.forEach(({ target_user_id, vote_count }) => { map[target_user_id] = vote_count; });
+            setBootCounts(map);
+        }
+    }, [eventId]);
+
+    const checkBanned = useCallback(async () => {
+        if (!eventId || !user?.id) return false;
+        const { data, error } = await supabase.rpc('is_user_banned_from_event_chat', { p_event_id: eventId, p_user_id: user.id });
+        if (!error && data === true) {
+            setIsBanned(true);
+            return true;
+        }
+        return false;
+    }, [eventId, user?.id]);
+
     useEffect(() => {
         fetchMessages();
+        if (eventId) {
+            fetchBootCounts();
+            checkBanned();
+        }
 
         const channel = supabase.channel(`chat-${conversationId}`)
             .on(
@@ -85,7 +112,7 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
         return () => {
             supabase.removeChannel(channel);
         };
-    }, [conversationId, fetchMessages, handleNewMessage]);
+    }, [conversationId, fetchMessages, handleNewMessage, eventId, fetchBootCounts, checkBanned]);
 
     useEffect(() => {
         if (scrollToBottomRef.current) {
@@ -93,10 +120,41 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
         }
     }, [messages]);
 
+    const handleVoteToBoot = useCallback(async (targetUserId) => {
+        if (!eventId || !user?.id || targetUserId === user.id) return;
+        const { data, error } = await supabase.rpc('vote_to_boot_event_chat', { p_event_id: eventId, p_target_user_id: targetUserId });
+        if (error) {
+            toast({ title: 'Error', description: error.message, variant: 'destructive' });
+            return;
+        }
+        if (data?.ok) {
+            fetchBootCounts();
+            const count = data.vote_count ?? 0;
+            if (data.banned) {
+                toast({ title: 'User removed', description: 'They can no longer send messages in this chat.' });
+            } else {
+                toast({ title: 'Vote recorded', description: `${count}/5 votes to remove. At 5 they’ll be locked from the chat.` });
+            }
+        } else {
+            toast({ title: 'Couldn’t vote', description: data?.error === 'cannot_vote_self' ? "You can't vote to remove yourself." : 'Try again.', variant: 'destructive' });
+        }
+    }, [eventId, user?.id, fetchBootCounts, toast]);
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if ((newMessage.trim() === '' && !imageFile) || isSending) return;
-        
+        if (eventId && isBanned) {
+            toast({ title: "Can't send", description: "You've been removed from this chat.", variant: "destructive" });
+            return;
+        }
+        if (eventId) {
+            const banned = await checkBanned();
+            if (banned) {
+                toast({ title: "Can't send", description: "You've been removed from this chat.", variant: "destructive" });
+                return;
+            }
+        }
+
         setIsSending(true);
 
         let imageUrl = null;
@@ -184,17 +242,27 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
                 messages={messages}
                 currentUserId={user.id}
                 scrollToBottomRef={scrollToBottomRef}
+                eventId={eventId}
+                bootCounts={bootCounts}
+                onVoteToBoot={handleVoteToBoot}
             />
 
-            <MessageInput
-                newMessage={newMessage}
-                setNewMessage={setNewMessage}
-                imagePreview={imagePreview}
-                setImagePreview={setImagePreview}
-                setImageFile={setImageFile}
-                isSending={isSending}
-                handleSendMessage={handleSendMessage}
-            />
+            {!isBanned && (
+                <MessageInput
+                    newMessage={newMessage}
+                    setNewMessage={setNewMessage}
+                    imagePreview={imagePreview}
+                    setImagePreview={setImagePreview}
+                    setImageFile={setImageFile}
+                    isSending={isSending}
+                    handleSendMessage={handleSendMessage}
+                />
+            )}
+            {isBanned && (
+                <div className="p-4 text-center text-sm text-foreground/60 border-t border-white/10">
+                    You’ve been removed from this chat and can’t send messages.
+                </div>
+            )}
         </motion.div>
     );
 };

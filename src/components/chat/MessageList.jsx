@@ -6,8 +6,16 @@ import { getDisplayName, getInitials } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
 import { MessageActions } from './MessageActions';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
+import { Button } from '@/components/ui/button';
+import { UserMinus } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
-const MessageList = ({ messages, currentUserId, scrollToBottomRef }) => {
+const MessageList = ({ messages, currentUserId, scrollToBottomRef, eventId, bootCounts = {}, onVoteToBoot }) => {
     const messagesEndRef = useRef(null);
     const { theme } = useTheme();
     const { user } = useAuth();
@@ -61,7 +69,28 @@ const MessageList = ({ messages, currentUserId, scrollToBottomRef }) => {
                         </div>
 
                         {hoveredMessageId === msg.id && msg.sender_id !== user.id && (
-                           <MessageActions message={msg} />
+                          <div className="absolute -right-10 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
+                            {eventId && onVoteToBoot && (
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="h-8 w-8 rounded-full text-amber-400 hover:text-amber-300 hover:bg-amber-500/10"
+                                      onClick={() => onVoteToBoot(msg.sender_id)}
+                                    >
+                                      <UserMinus size={16} />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Vote to remove from chat ({(bootCounts[msg.sender_id] ?? 0)}/5)</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
+                            <MessageActions message={msg} />
+                          </div>
                         )}
                     </motion.div>
                 ))}

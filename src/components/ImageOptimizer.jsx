@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { useOptimizedImage } from '@/hooks/useOptimizedImage';
+import { Calendar } from 'lucide-react';
 
 // Separate heavy component logic
 const ImageLoader = ({ 
@@ -56,6 +57,8 @@ const ImageOptimizer = ({
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   style,
   objectFit = 'cover',
+  /** When 'event', show gradient + icon instead of gray for missing/error (e.g. external event cards). */
+  fallbackVariant,
   ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -94,10 +97,16 @@ const ImageOptimizer = ({
   };
 
   if (!src || hasError) {
+    const isEventFallback = fallbackVariant === 'event';
     return (
       <div 
         ref={containerRef}
-        className={cn("bg-gray-200 dark:bg-gray-800 animate-pulse rounded-md", className)}
+        className={cn(
+          isEventFallback
+            ? 'flex items-center justify-center bg-gradient-to-br from-violet-600/80 via-purple-700/80 to-indigo-800/80 rounded-md'
+            : 'bg-gray-200 dark:bg-gray-800 animate-pulse rounded-md',
+          className
+        )}
         style={{ 
           width: width ? `${width}px` : '100%', 
           height: height ? `${height}px` : '100%',
@@ -106,7 +115,11 @@ const ImageOptimizer = ({
         }}
         role="presentation"
         aria-hidden="true"
-      />
+      >
+        {isEventFallback && (
+          <Calendar className="w-12 h-12 text-white/40" strokeWidth={1.5} aria-hidden />
+        )}
+      </div>
     );
   }
 

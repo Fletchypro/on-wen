@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 import { getPageTitle, getMetaDescription, getOGTags, getTwitterTags, getCanonicalURL } from '@/lib/seoHelpers';
 
 const DashboardV2Page = ({
-  events, setEvents, deleteEvent, onEditEvent, searchQuery, setSearchQuery, imageOpacity,
+  events, setEvents, addEvent, deleteEvent, onEditEvent, searchQuery, setSearchQuery, imageOpacity,
   onViewUserProfile, onViewFriendCalendar, setCurrentView, eventInvitesCount
 }) => {
   const scrollContainerRef = useRef(null);
@@ -79,6 +79,7 @@ const DashboardV2Page = ({
               activeTab={discoverTab}
               onTabChange={setDiscoverTab}
               fetchCalendarEvents={fetchEvents}
+              addEvent={addEvent}
             />
           </Panel>
 
