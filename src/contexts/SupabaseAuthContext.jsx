@@ -76,6 +76,10 @@ export const AuthProvider = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
+        if (!newSession) {
+          await handleSession(null);
+          return;
+        }
         if (event === 'SIGNED_IN') {
           if (newSession.user.created_at === newSession.user.last_sign_in_at) {
             setJustSignedUp(true);
@@ -137,6 +141,37 @@ export const AuthProvider = ({ children }) => {
     return await supabase.auth.verifyOtp(payload);
   }, []);
 
+  const resetPasswordForEmail = useCallback(async (email) => {
+    const redirectTo = typeof window !== 'undefined' ? `${window.location.origin}/reset-password` : '';
+    if (import.meta.env.DEV) {
+      console.log('[Auth] Sending password recovery for', email?.replace?.(/.(?=.@)/g, '*'), 'redirectTo', redirectTo);
+    }
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+    if (import.meta.env.DEV && (error || data)) {
+      console.log('[Auth] resetPasswordForEmail result', error ? { error: error.message } : { ok: true });
+    }
+    if (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Password reset failed',
+        description: error.message,
+      });
+    }
+    return { data, error };
+  }, [toast]);
+
+  const updateUserPassword = useCallback(async (newPassword) => {
+    const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Password update failed',
+        description: error.message,
+      });
+    }
+    return { data, error };
+  }, [toast]);
+
   const value = useMemo(() => ({
     user,
     session,
@@ -153,7 +188,9 @@ export const AuthProvider = ({ children }) => {
     signOut,
     verifyOtp,
     isConfirmed,
-  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed]);
+    resetPasswordForEmail,
+    updateUserPassword,
+  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed, resetPasswordForEmail, updateUserPassword]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

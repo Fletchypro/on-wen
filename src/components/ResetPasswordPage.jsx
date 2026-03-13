@@ -74,19 +74,35 @@ const ResetPasswordPage = () => {
 
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
+        if (typeof resetPasswordForEmail !== 'function') {
+            setError('Password reset is not available. Please try again after refreshing, or contact support.');
+            return;
+        }
         setLoading(true);
         setError(null);
-        const { error: resetError } = await resetPasswordForEmail(email);
-        setLoading(false);
-        if (resetError) {
-            setError(resetError.message);
-        } else {
-            setSuccessMessage(`A password reset link has been sent to ${email}.`);
-            toast({
-                title: "Check your email!",
-                description: `A password reset link has been sent to ${email}.`,
-                className: "bg-blue-500 text-white",
-            });
+        try {
+            const timeoutMs = 15000;
+            const result = await Promise.race([
+                resetPasswordForEmail(email),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out. Check your SMTP setup in Supabase or try again.')), timeoutMs)),
+            ]);
+            const { error: resetError } = result;
+            if (resetError) {
+                setError(resetError.message);
+            } else {
+                setSuccessMessage(`A password reset link has been sent to ${email}.`);
+                toast({
+                    title: "Check your email!",
+                    description: `A password reset link has been sent to ${email}.`,
+                    className: "bg-blue-500 text-white",
+                });
+            }
+        } catch (err) {
+            console.error('Reset password error:', err);
+            const msg = err?.message || 'Something went wrong. Try again or contact support.';
+            setError(msg.includes('not a function') ? 'Password reset is temporarily unavailable. Please refresh the page or try again later.' : msg);
+        } finally {
+            setLoading(false);
         }
     };
 

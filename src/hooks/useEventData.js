@@ -6,6 +6,26 @@ import { startOfDay, parseISO } from 'date-fns';
 export const useEventData = (user, profile, events, setEvents, navigateTo) => {
   const { toast } = useToast();
 
+  const fetchEvents = useCallback(async () => {
+    if (!user?.id) return;
+    const { data, error } = await supabase.rpc('get_user_events_with_attendees', { p_user_id: user.id });
+    if (error) {
+      console.error('Error fetching events:', error);
+      return;
+    }
+    const formatted = (data || [])
+      .map(item => ({ ...(item?.event_details || {}), is_hidden_from_others: item?.is_hidden_from_others }))
+      .filter(e => e.id)
+      .sort((a, b) => {
+        const aTime = a.date ? startOfDay(parseISO(a.date)).getTime() : Infinity;
+        const bTime = b.date ? startOfDay(parseISO(b.date)).getTime() : Infinity;
+        if (aTime !== bTime) return aTime - bTime;
+        if (a.time && b.time) return String(a.time).localeCompare(String(b.time));
+        return a.time ? -1 : (b.time ? 1 : 0);
+      });
+    setEvents(formatted);
+  }, [user?.id, setEvents]);
+
   const addEvent = useCallback(async (eventData, inviteeIds, tagId) => {
     if (!user) return;
 
@@ -155,5 +175,5 @@ export const useEventData = (user, profile, events, setEvents, navigateTo) => {
     }
   }, [user, events, setEvents, toast]);
 
-  return { addEvent, updateEvent, deleteEvent, deleteAllEvents };
+  return { addEvent, updateEvent, deleteEvent, deleteAllEvents, fetchEvents };
 };

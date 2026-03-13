@@ -211,8 +211,9 @@ const AppContent = () => {
 
   if (authLoading || (user && (!profile || eventsLoading))) {
     return (
-        <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${theme.gradient}`}>
-        </div>
+      <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${theme.gradient}`}>
+        <Loader2 className="h-10 w-10 animate-spin text-purple-400" aria-hidden />
+      </div>
     );
   }
   
