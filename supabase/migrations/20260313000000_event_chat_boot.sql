@@ -14,12 +14,14 @@ CREATE INDEX IF NOT EXISTS idx_event_chat_boot_votes_event_target ON public.even
 
 ALTER TABLE public.event_chat_boot_votes ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Authenticated can manage own vote" ON public.event_chat_boot_votes;
 CREATE POLICY "Authenticated can manage own vote"
   ON public.event_chat_boot_votes FOR ALL
   TO authenticated
   USING (voted_by_user_id = auth.uid())
   WITH CHECK (voted_by_user_id = auth.uid());
 
+DROP POLICY IF EXISTS "Authenticated can read votes for event" ON public.event_chat_boot_votes;
 CREATE POLICY "Authenticated can read votes for event"
   ON public.event_chat_boot_votes FOR SELECT
   TO authenticated
@@ -35,6 +37,7 @@ CREATE TABLE IF NOT EXISTS public.event_chat_banned (
 
 ALTER TABLE public.event_chat_banned ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Authenticated can read event_chat_banned" ON public.event_chat_banned;
 CREATE POLICY "Authenticated can read event_chat_banned"
   ON public.event_chat_banned FOR SELECT
   TO authenticated

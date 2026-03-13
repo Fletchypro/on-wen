@@ -21,6 +21,7 @@ CREATE INDEX IF NOT EXISTS idx_external_events_city ON public.external_events (l
 
 ALTER TABLE public.external_events ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Allow read for authenticated and anon" ON public.external_events;
 CREATE POLICY "Allow read for authenticated and anon"
   ON public.external_events FOR SELECT
   TO authenticated, anon

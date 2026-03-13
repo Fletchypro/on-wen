@@ -94,25 +94,21 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
         if (eventId) {
             fetchBootCounts();
             checkBanned();
+            const t = setTimeout(() => fetchMessages(), 500);
+            return () => clearTimeout(t);
         }
+    }, [conversationId, fetchMessages, eventId, fetchBootCounts, checkBanned]);
 
+    useEffect(() => {
         const channel = supabase.channel(`chat-${conversationId}`)
             .on(
-                'postgres_changes', 
-                { 
-                    event: 'INSERT', 
-                    schema: 'public', 
-                    table: 'messages', 
-                    filter: `conversation_id=eq.${conversationId}` 
-                }, 
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'messages', filter: `conversation_id=eq.${conversationId}` },
                 handleNewMessage
             )
             .subscribe();
-
-        return () => {
-            supabase.removeChannel(channel);
-        };
-    }, [conversationId, fetchMessages, handleNewMessage, eventId, fetchBootCounts, checkBanned]);
+        return () => supabase.removeChannel(channel);
+    }, [conversationId, handleNewMessage]);
 
     useEffect(() => {
         if (scrollToBottomRef.current) {
@@ -238,14 +234,22 @@ const ChatWindow = ({ conversation, onBack, onMessagesRead, onViewFriendCalendar
                 onViewFriendCalendar={onViewFriendCalendar}
             />
 
-            <MessageList 
-                messages={messages}
-                currentUserId={user.id}
-                scrollToBottomRef={scrollToBottomRef}
-                eventId={eventId}
-                bootCounts={bootCounts}
-                onVoteToBoot={handleVoteToBoot}
-            />
+            {eventId && messages.length === 0 ? (
+                <div className="flex-1 flex items-center justify-center p-6">
+                    <p className="text-sm text-foreground/70 text-center max-w-xs">
+                        No messages here yet. Everyone who adds this event from <strong>Discover</strong> sees the same chat. If you’re not seeing messages from others, they may have added a separate copy—have them remove this event and re-add it from Discover so you’re in the same chat.
+                    </p>
+                </div>
+            ) : (
+                <MessageList 
+                    messages={messages}
+                    currentUserId={user.id}
+                    scrollToBottomRef={scrollToBottomRef}
+                    eventId={eventId}
+                    bootCounts={bootCounts}
+                    onVoteToBoot={handleVoteToBoot}
+                />
+            )}
 
             {!isBanned && (
                 <MessageInput

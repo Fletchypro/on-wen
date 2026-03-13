@@ -1,0 +1,22 @@
+-- Event chat shows blank for one user even when another sent messages because
+-- each user can end up in a *different* event (and thus different conversation)
+-- if events.external_id is not set when creating from Discover.
+--
+-- REQUIREMENT: In your create_event_with_invites RPC, when inserting into
+-- public.events, include external_id from the incoming event_data so that
+-- join_external_event() can find the same event for others who add the same
+-- external event.
+--
+-- In the INSERT into events, add:
+--   external_id => (event_data->>'external_id')
+-- (or NULL if the key is missing). event_data is the JSONB passed from the app;
+-- the app sends external_id when adding from Discover (Add to calendar).
+--
+-- After updating the RPC:
+-- - New "Add to calendar" from Discover will store external_id.
+-- - The next user who adds the same event will get join_external_event(...)
+--   returning 'joined' and will see the same event and group chat.
+--
+-- For events already created without external_id (e.g. "Masters of Illusion"
+-- added by two accounts before this fix): have one account remove the event
+-- and re-add it from Discover so they join the other's event and share one chat.
