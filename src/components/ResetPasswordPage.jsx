@@ -37,14 +37,22 @@ const ResetPasswordPage = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
     
-    const [isTokenFlow, setIsTokenFlow] = useState(false);
+    // Detect recovery link from email: Supabase redirects with #access_token&type=recovery or ?token=
+    // Read URL synchronously so we don't lose it when Supabase client consumes the hash
+    const [isTokenFlow, setIsTokenFlow] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        const h = window.location.hash || '';
+        const q = window.location.search || '';
+        return !!(h.includes('access_token') || h.includes('type=recovery') || (q && q.includes('token=')));
+    });
 
     useEffect(() => {
-        const hash = location.hash;
-        if (hash.includes('access_token')) {
+        const hash = location.hash || '';
+        const search = location.search || '';
+        if (hash.includes('access_token') || hash.includes('type=recovery') || (search && search.includes('token='))) {
             setIsTokenFlow(true);
         }
-    }, [location.hash]);
+    }, [location.hash, location.search]);
 
     const handlePasswordUpdate = async (e) => {
         e.preventDefault();

@@ -7,7 +7,6 @@ import React, { useState } from 'react';
       DialogTitle,
       DialogDescription,
       DialogFooter,
-      DialogTrigger,
     } from "@/components/ui/dialog"
     import { Button } from '@/components/ui/button';
     import { Input } from '@/components/ui/input';
@@ -16,7 +15,7 @@ import React, { useState } from 'react';
     import { useToast } from '@/components/ui/use-toast';
     import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
 
-    export const ChangePasswordDialog = ({ open, onOpenChange, children }) => {
+    export const ChangePasswordDialog = ({ open, onOpenChange }) => {
       const [newPassword, setNewPassword] = useState('');
       const [confirmPassword, setConfirmPassword] = useState('');
       const [isUpdating, setIsUpdating] = useState(false);
@@ -61,7 +60,6 @@ import React, { useState } from 'react';
 
       return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-          <DialogTrigger asChild>{children}</DialogTrigger>
           <DialogContent className="p-0 border-none bg-transparent shadow-none max-w-lg">
             <div className="relative rounded-2xl overflow-hidden text-white glass-strong">
                 <motion.div 

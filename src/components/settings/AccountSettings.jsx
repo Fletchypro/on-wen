@@ -49,16 +49,16 @@ const AccountSettings = () => {
         )}
 
         {profile?.email && (
-          <ChangePasswordDialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
-            <DialogTrigger asChild>
-              <Button
-                className="w-full flex items-center justify-center space-x-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
-              >
-                <KeyRound size={18} />
-                <span>Change Password</span>
-              </Button>
-            </DialogTrigger>
-          </ChangePasswordDialog>
+          <>
+            <Button
+              onClick={() => setIsPasswordDialogOpen(true)}
+              className="w-full flex items-center justify-center space-x-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+            >
+              <KeyRound size={18} />
+              <span>Change Password</span>
+            </Button>
+            <ChangePasswordDialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen} />
+          </>
         )}
 
         <Button

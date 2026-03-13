@@ -7,7 +7,7 @@ import { Share2 } from 'lucide-react';
 const Footer = () => {
   const { user } = useAuth();
   const { toast } = useToast();
-  const homeLink = user ? '/home' : '/start';
+  const homeLink = user ? '/dashboard' : '/';
   const isShareApiSupported = typeof navigator.share !== 'undefined';
 
   const handleShare = async (e) => {
