@@ -229,7 +229,7 @@ const VerifyOtpPage = () => {
               {error && <motion.p variants={itemVariants} className="text-red-400 text-sm text-center mb-4">{error}</motion.p>}
               <motion.div variants={itemVariants}>
                 <Button type="submit" disabled={loading} size="lg" variant="glow" className="w-full">
-                    {loading ? <Loader2 className="animate-spin" /> : <><ShieldCheck size={20} className="mr-2"/> Verify & Continue</>}
+                    {loading ? <><Loader2 className="animate-spin mr-2" /> Verifying…</> : <><ShieldCheck size={20} className="mr-2"/> Verify & continue</>}
                 </Button>
               </motion.div>
             </form>
@@ -245,10 +245,10 @@ const VerifyOtpPage = () => {
                 {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
               </Button>
             </motion.div>
-            <motion.div variants={itemVariants} className="mt-4 text-center">
-                <Link to="/signup" className="text-sm text-neutral-400 hover:text-neutral-200 transition-colors">
-                    Back to Sign Up
-                </Link>
+            <motion.div variants={itemVariants} className="mt-4 text-center text-sm">
+                <Link to="/signup" className="text-neutral-400 hover:text-neutral-200 transition-colors">Back to sign up</Link>
+                <span className="text-neutral-500 mx-1">·</span>
+                <Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors">Sign in instead</Link>
              </motion.div>
            </motion.div>
           </div>

@@ -141,6 +141,14 @@ export const AuthProvider = ({ children }) => {
     return await supabase.auth.verifyOtp(payload);
   }, []);
 
+  const updateUserPhone = useCallback(async (phone) => {
+    return await supabase.auth.updateUser({ phone });
+  }, []);
+
+  const verifyUserPhoneOtp = useCallback(async (phone, token) => {
+    return await supabase.auth.verifyOtp({ phone, token, type: 'phone_change' });
+  }, []);
+
   const resetPasswordForEmail = useCallback(async (email) => {
     const redirectTo = typeof window !== 'undefined' ? `${window.location.origin}/reset-password` : '';
     if (import.meta.env.DEV) {
@@ -208,7 +216,10 @@ export const AuthProvider = ({ children }) => {
     resetPasswordForEmail,
     reauthenticate,
     updateUserPassword,
-  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed, resetPasswordForEmail, reauthenticate, updateUserPassword]);
+    fetchProfile,
+    updateUserPhone,
+    verifyUserPhoneOtp,
+  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed, resetPasswordForEmail, reauthenticate, updateUserPassword, fetchProfile, updateUserPhone, verifyUserPhoneOtp]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

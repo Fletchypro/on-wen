@@ -150,6 +150,7 @@ const EmailSignUpForm = () => {
                         onChange={(e) => setPassword(e.target.value)} 
                         placeholder="••••••••" 
                         required 
+                        minLength={6}
                         disabled={loading}
                     />
                     <button 
@@ -157,6 +158,7 @@ const EmailSignUpForm = () => {
                         onClick={() => setShowPassword(!showPassword)} 
                         className="absolute inset-y-0 right-0 flex items-center px-3 text-white/50 hover:text-white"
                         disabled={loading}
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -168,7 +170,7 @@ const EmailSignUpForm = () => {
                 disabled={loading} 
                 className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold flex items-center justify-center gap-2"
             >
-                <UserPlus size={18} /> {loading ? 'Creating Account...' : 'Sign Up with Email'}
+                {loading ? 'Creating account…' : <><UserPlus size={18} /> Sign Up with Email</>}
             </Button>
         </form>
     );
@@ -307,6 +309,7 @@ const PhoneSignUpForm = () => {
                         onChange={(e) => setPassword(e.target.value)} 
                         placeholder="••••••••" 
                         required 
+                        minLength={6}
                         disabled={loading}
                     />
                     <button 
@@ -314,6 +317,7 @@ const PhoneSignUpForm = () => {
                         onClick={() => setShowPassword(!showPassword)} 
                         className="absolute inset-y-0 right-0 flex items-center px-3 text-white/50 hover:text-white"
                         disabled={loading}
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -325,7 +329,7 @@ const PhoneSignUpForm = () => {
                 disabled={loading} 
                 className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold flex items-center justify-center gap-2"
             >
-                <UserPlus size={18} /> {loading ? 'Creating Account...' : 'Sign Up with Phone'}
+                {loading ? 'Creating account…' : <><UserPlus size={18} /> Sign Up with Phone</>}
             </Button>
         </form>
     );
@@ -381,7 +385,7 @@ const SignUpPage = () => {
                     </Tabs>
                     <div className="text-center mt-6">
                         <span className="text-white/70">Already have an account? </span>
-                        <Link to="/login" className="font-semibold text-purple-400 hover:underline">Sign In</Link>
+                        <Link to="/login" className="font-semibold text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign in</Link>
                     </div>
                 </div>
             </motion.div>
