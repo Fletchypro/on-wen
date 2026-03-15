@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
 import { LogOut, KeyRound, UserCircle, Mail } from 'lucide-react';
-import { ChangePasswordDialog } from '@/components/settings/ChangePasswordDialog';
 import { AddEmailDialog } from '@/components/settings/AddEmailDialog';
 import { DialogTrigger } from '@/components/ui/dialog';
 
@@ -14,7 +14,6 @@ const itemVariants = {
 
 const AccountSettings = () => {
   const { user, profile, signOut } = useAuth();
-  const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
   
   const handleSignOut = async () => {
@@ -49,16 +48,12 @@ const AccountSettings = () => {
         )}
 
         {profile?.email && (
-          <>
-            <Button
-              onClick={() => setIsPasswordDialogOpen(true)}
-              className="w-full flex items-center justify-center space-x-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
-            >
+          <Button asChild className="w-full flex items-center justify-center space-x-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors">
+            <Link to="/change-password" className="flex items-center justify-center gap-2">
               <KeyRound size={18} />
               <span>Change Password</span>
-            </Button>
-            <ChangePasswordDialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen} />
-          </>
+            </Link>
+          </Button>
         )}
 
         <Button

@@ -2,8 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from '@/App';
-import '@/index.css';
+// CSS loaded via <link> in index.html to avoid MIME-type error in dev
 import { AuthProvider } from '@/contexts/SupabaseAuthContext';
+
+if (typeof React?.useState !== 'function') {
+	throw new Error('React.useState is not available. Clear Vite cache: rm -rf node_modules/.vite then restart npm run dev.');
+}
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/toaster';

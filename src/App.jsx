@@ -35,6 +35,7 @@ const MessagesPage = lazy(() => import('@/components/MessagesPage'));
 const FriendCalendarPage = lazy(() => import('@/components/FriendCalendarPage'));
 const UserProfilePage = lazy(() => import('@/components/UserProfilePage'));
 const ResetPasswordPage = lazy(() => import('@/components/ResetPasswordPage'));
+const ChangePasswordPage = lazy(() => import('@/components/ChangePasswordPage'));
 const VerifyOtpPage = lazy(() => import('@/components/VerifyOtpPage'));
 const SupportPage = lazy(() => import('@/pages/SupportPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
@@ -248,6 +249,7 @@ const AppContent = () => {
             <Route path="friends" element={<PageTransition><FriendsPage onRequestsHandled={fetchFriendRequestCount} onSelectConversation={handleSelectConversation} onViewFriendCalendar={handleViewFriendCalendar} onViewUserProfile={handleViewUserProfile} /></PageTransition>} />
             <Route path="messages" element={<PageTransition><MessagesPage onViewFriendCalendar={handleViewFriendCalendar} /></PageTransition>} />
             <Route path="settings" element={<PageTransition><SettingsPage deleteAllEvents={deleteAllEvents} imageOpacity={imageOpacity} setImageOpacity={setImageOpacity} notificationPreferences={notificationPreferences} setNotificationPreferences={setNotificationPreferences} /></PageTransition>} />
+            <Route path="change-password" element={<PageTransition><ChangePasswordPage /></PageTransition>} />
             <Route path="friend-calendar" element={<PageTransition><FriendCalendarPage onEditEvent={handleEditClick} deleteEvent={deleteEvent} onViewFriendCalendar={handleViewFriendCalendar} imageOpacity={imageOpacity} /></PageTransition>} />
             <Route path="profile/:userId" element={<PageTransition><UserProfilePage onEditEvent={handleEditClick} deleteEvent={deleteEvent} onViewFriendCalendar={handleViewFriendCalendar} imageOpacity={imageOpacity} /></PageTransition>} />
             </Routes>

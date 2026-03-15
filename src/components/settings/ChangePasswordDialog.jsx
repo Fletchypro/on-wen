@@ -15,7 +15,7 @@ import React, { useState } from 'react';
     import { useToast } from '@/components/ui/use-toast';
     import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
 
-    export const ChangePasswordDialog = ({ open, onOpenChange }) => {
+    export const ChangePasswordDialog = ({ open, onOpenChange, children }) => {
       const [newPassword, setNewPassword] = useState('');
       const [confirmPassword, setConfirmPassword] = useState('');
       const [isUpdating, setIsUpdating] = useState(false);
@@ -60,6 +60,7 @@ import React, { useState } from 'react';
 
       return (
         <Dialog open={open} onOpenChange={onOpenChange}>
+          {children}
           <DialogContent className="p-0 border-none bg-transparent shadow-none max-w-lg">
             <div className="relative rounded-2xl overflow-hidden text-white glass-strong">
                 <motion.div 

@@ -251,6 +251,17 @@ export default defineConfig({
 		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
 		alias: {
 			'@': path.resolve(__dirname, './src'),
+			// Force a single React instance (fixes "Cannot read properties of null (reading 'useState')" in dev)
+			react: path.resolve(__dirname, 'node_modules/react'),
+			'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+		},
+		dedupe: ['react', 'react-dom'],
+	},
+	optimizeDeps: {
+		include: ['react', 'react-dom'],
+		// Ensure pre-bundle uses the same React
+		esbuildOptions: {
+			mainFields: ['module', 'main'],
 		},
 	},
 	build: {

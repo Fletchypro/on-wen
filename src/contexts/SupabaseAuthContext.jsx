@@ -160,15 +160,32 @@ export const AuthProvider = ({ children }) => {
     return { data, error };
   }, [toast]);
 
-  const updateUserPassword = useCallback(async (newPassword) => {
-    const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+  const reauthenticate = useCallback(async () => {
+    const { data, error } = await supabase.auth.reauthenticate();
+    if (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Verification code could not be sent',
+        description: error.message,
+      });
+    }
+    return { data, error };
+  }, [toast]);
+
+  const updateUserPassword = useCallback(async (newPassword, nonce = null) => {
+    const attrs = { password: newPassword };
+    if (nonce) attrs.nonce = nonce;
+    const { data, error } = await supabase.auth.updateUser(attrs);
     if (error) {
       toast({
         variant: 'destructive',
         title: 'Password update failed',
         description: error.message,
       });
+      return { data, error };
     }
+    // Sync session after password change so it persists (Supabase client bug workaround)
+    await supabase.auth.refreshSession();
     return { data, error };
   }, [toast]);
 
@@ -189,8 +206,9 @@ export const AuthProvider = ({ children }) => {
     verifyOtp,
     isConfirmed,
     resetPasswordForEmail,
+    reauthenticate,
     updateUserPassword,
-  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed, resetPasswordForEmail, updateUserPassword]);
+  }), [user, session, profile, loading, justSignedUp, setProfile, signUp, signUpWithPhone, resendSignupCode, signIn, signInWithPhoneAndPassword, signInWithPhone, signOut, verifyOtp, isConfirmed, resetPasswordForEmail, reauthenticate, updateUserPassword]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
