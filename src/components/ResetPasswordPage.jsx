@@ -27,7 +27,7 @@ const ResetPasswordPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { toast } = useToast();
-    const { updateUserPassword, resetPasswordForEmail, loading: authLoading } = useAuth();
+    const { updateUserPassword, resetPasswordForEmail } = useAuth();
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -60,23 +60,38 @@ const ResetPasswordPage = () => {
             setError('Passwords do not match.');
             return;
         }
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters.');
+            return;
+        }
 
         setLoading(true);
         setError(null);
 
-        const { error: updateError } = await updateUserPassword(password);
-
-        setLoading(false);
-        if (updateError) {
-            setError(updateError.message);
-        } else {
-            setSuccessMessage("Your password has been updated successfully!");
-            toast({
-                title: "Success!",
-                description: "You will be redirected to the dashboard shortly.",
-                className: "bg-green-500 text-white",
-            });
-            setTimeout(() => navigate('/dashboard', { replace: true }), 3000);
+        const timeoutMs = 20000;
+        try {
+            const result = await Promise.race([
+                updateUserPassword(password),
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Request timed out. Please try again or request a new reset link.')), timeoutMs)
+                ),
+            ]);
+            const updateError = result?.error;
+            if (updateError) {
+                setError(updateError.message);
+            } else {
+                setSuccessMessage("Your password has been updated successfully!");
+                toast({
+                    title: "Success!",
+                    description: "You can sign in with your new password.",
+                    className: "bg-green-500 text-white",
+                });
+                setTimeout(() => navigate('/login', { replace: true }), 2000);
+            }
+        } catch (err) {
+            setError(err?.message || 'Something went wrong. Please try again or request a new reset link.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -115,14 +130,8 @@ const ResetPasswordPage = () => {
     };
 
     const renderContent = () => {
-        if (authLoading && isTokenFlow) {
-            return (
-                <div className="flex justify-center items-center h-64">
-                    <Loader2 className="w-16 h-16 text-purple-500 animate-spin" />
-                </div>
-            );
-        }
-
+        // When user landed from email link, show the form immediately so we don't block on auth loading.
+        // Auth may still be initializing the recovery session in the background.
         if (successMessage) {
             return (
                 <motion.div

@@ -80,8 +80,8 @@ export const AuthProvider = ({ children }) => {
           await handleSession(null);
           return;
         }
-        if (event === 'SIGNED_IN') {
-          if (newSession.user.created_at === newSession.user.last_sign_in_at) {
+        if (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY') {
+          if (event === 'SIGNED_IN' && newSession.user.created_at === newSession.user.last_sign_in_at) {
             setJustSignedUp(true);
           }
           await handleSession(newSession);
