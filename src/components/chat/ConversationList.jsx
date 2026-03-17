@@ -50,10 +50,10 @@ const ConversationList = ({ onSelectConversation, onViewFriendCalendar }) => {
         }
 
         const filteredData = data.filter(convo => {
-            // Only show 1:1 DMs in Messages list. Event group chats are opened from the event detail.
-            if (convo.type === 'group' && convo.event_id) {
-                return false;
-            }
+            // Only show individual DMs and private group chats. Hide ALL event-linked (public) chats.
+            // RPC may return event_id and/or event_details for event conversations.
+            if (convo.event_id) return false;
+            if (convo.type === 'group' && convo.event_details) return false;
             return true;
         });
 

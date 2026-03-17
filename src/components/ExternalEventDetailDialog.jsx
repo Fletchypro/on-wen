@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { format, parseISO } from 'date-fns';
-import { Calendar, Clock, MapPin, Ticket, Plus } from 'lucide-react';
+import { Calendar, Clock, MapPin, Ticket, Plus, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogOverlay, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
  */
 const ExternalEventDetailDialog = ({ event, isOpen, onClose, onAddToCalendar }) => {
   const controls = useAnimation();
+  const [adding, setAdding] = useState(false);
 
   React.useEffect(() => {
     if (isOpen) controls.start('visible');
@@ -104,13 +105,19 @@ const ExternalEventDetailDialog = ({ event, isOpen, onClose, onAddToCalendar }) 
                     <Button
                       variant="outline"
                       className="flex-1 border-white/20 hover:bg-white/10 gap-2"
-                      onClick={() => {
-                        onAddToCalendar(event);
-                        handleClose();
+                      disabled={adding}
+                      onClick={async () => {
+                        setAdding(true);
+                        try {
+                          await onAddToCalendar(event);
+                          handleClose();
+                        } finally {
+                          setAdding(false);
+                        }
                       }}
                     >
-                      <Plus className="w-4 h-4" />
-                      Add to calendar
+                      {adding ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+                      {adding ? 'Adding…' : 'Add to calendar'}
                     </Button>
                   )}
                 </div>

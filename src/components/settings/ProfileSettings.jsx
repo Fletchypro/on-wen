@@ -6,11 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { User, Save, Upload, Cake, Edit, X } from 'lucide-react';
-import DatePickerPopover from '@/components/ui/date-picker-popover';
-import { CustomCalendar } from '@/components/ui/custom-calendar';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { Calendar as CalendarIcon } from 'lucide-react';
 import ImageOptimizer from '@/components/ImageOptimizer';
 
 const itemVariants = {
@@ -23,7 +19,6 @@ const ProfileSettings = () => {
   const { profile, loading, updateProfile, uploadAvatar } = useUserProfile(user);
   const [formData, setFormData] = useState({ first_name: '', last_name: '', username: '', birthday: null });
   const [isEditing, setIsEditing] = useState(false);
-  const [isDatePickerOpen, setDatePickerOpen] = useState(false);
   const avatarInputRef = useRef(null);
 
   const resetFormData = () => {
@@ -88,11 +83,6 @@ const ProfileSettings = () => {
     } else {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
-  };
-
-  const handleDateChange = (date) => {
-    setFormData(prev => ({ ...prev, birthday: date }));
-    setDatePickerOpen(false);
   };
 
   const handleCancelEdit = () => {
@@ -209,30 +199,27 @@ const ProfileSettings = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="birthday" className="text-foreground font-medium flex items-center gap-2"><Cake size={16} /> Birthday</Label>
-                <DatePickerPopover
-                  open={isDatePickerOpen}
-                  onOpenChange={setDatePickerOpen}
-                  trigger={
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full justify-start text-left font-normal p-3 h-auto rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 hover:bg-black/30 hover:text-white",
-                        !formData.birthday && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {formData.birthday ? format(formData.birthday, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  }
-                >
-                  <CustomCalendar
-                    mode="single"
-                    selected={formData.birthday}
-                    onSelect={handleDateChange}
-                    disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                    initialFocus
-                  />
-                </DatePickerPopover>
+                <input
+                  id="birthday"
+                  type="date"
+                  value={formData.birthday ? (() => {
+                    const d = formData.birthday;
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${y}-${m}-${day}`;
+                  })() : ''}
+                  min="1900-01-01"
+                  max={format(new Date(), 'yyyy-MM-dd')}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setFormData(prev => ({
+                      ...prev,
+                      birthday: v ? new Date(v + 'T12:00:00') : null,
+                    }));
+                  }}
+                  className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all [color-scheme:dark]"
+                />
               </div>
               <div className="flex items-center justify-end gap-2 pt-2">
                 <Button

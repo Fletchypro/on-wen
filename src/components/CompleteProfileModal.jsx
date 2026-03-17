@@ -6,25 +6,32 @@ import React, { useState, useEffect, useRef } from 'react';
     import { Button } from '@/components/ui/button';
     import { Input } from '@/components/ui/input';
     import { Label } from '@/components/ui/label';
-    import { Calendar } from '@/components/ui/calendar';
-    import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
     import { Calendar as CalendarIcon, Check, ArrowRight, Loader2 } from 'lucide-react';
     import { format } from 'date-fns';
     import PhoneInput from 'react-phone-number-input/input';
     import { supabase } from '@/lib/customSupabaseClient';
+
+    const parseBirthday = (b) => {
+      if (!b) return null;
+      if (typeof b === 'string') {
+        const parts = b.split('-').map(Number);
+        if (parts.length === 3) return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+      return b instanceof Date ? b : null;
+    };
 
     const CompleteProfileModal = ({ isOpen, setIsOpen, profile, setProfile }) => {
       const { user, updateUserPhone, verifyUserPhoneOtp, fetchProfile } = useAuth();
       const { toast } = useToast();
 
       const [step, setStep] = useState(1);
-      const [formData, setFormData] = useState({
+      const [formData, setFormData] = useState(() => ({
         firstName: profile?.first_name || '',
         lastName: profile?.last_name || '',
         username: profile?.username || '',
-        birthday: profile?.birthday ? new Date(profile.birthday) : null,
+        birthday: parseBirthday(profile?.birthday),
         phone: profile?.phone || '+1',
-      });
+      }));
       const [otp, setOtp] = useState(new Array(6).fill(""));
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState(null);
@@ -126,7 +133,12 @@ import React, { useState, useEffect, useRef } from 'react';
 
       const handleBirthdaySubmit = async (e) => {
         e.preventDefault();
-        const success = await handleUpdateProfile({ birthday: formData.birthday });
+        const birthdayStr = formData.birthday
+          ? (formData.birthday instanceof Date
+              ? format(formData.birthday, 'yyyy-MM-dd')
+              : String(formData.birthday).slice(0, 10))
+          : null;
+        const success = await handleUpdateProfile({ birthday: birthdayStr });
         if (success) {
           setStep(4);
         }
@@ -217,33 +229,40 @@ import React, { useState, useEffect, useRef } from 'react';
                 </Button>
               </form>
             );
-          case 3: // Birthday (for all)
+          case 3: // Birthday (for all) — native date input for iOS wheel picker
+            const today = new Date();
+            const maxDate = format(today, 'yyyy-MM-dd');
+            const minDate = '1900-01-01';
+            const birthdayValue = formData.birthday
+              ? (formData.birthday instanceof Date ? format(formData.birthday, 'yyyy-MM-dd') : String(formData.birthday).slice(0, 10))
+              : '';
             return (
               <form onSubmit={handleBirthdaySubmit} className="space-y-4">
                 <DialogHeader>
-                  <DialogTitle className="text-3xl font-bold text-white text-center">When's Your Birthday?</DialogTitle>
+                  <DialogTitle className="text-3xl font-bold text-white text-center">When&apos;s Your Birthday?</DialogTitle>
                   <DialogDescription className="text-center text-white/70">This helps us personalize your experience.</DialogDescription>
                 </DialogHeader>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start text-left font-normal bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white">
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {formData.birthday ? format(formData.birthday, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 glass-strong border-white/20">
-                    <Calendar
-                      mode="single"
-                      selected={formData.birthday}
-                      onSelect={(date) => setFormData({ ...formData, birthday: date })}
-                      initialFocus
-                      captionLayout="dropdown-buttons"
-                      fromYear={1920}
-                      toYear={new Date().getFullYear() - 13}
-                      className="text-white"
-                    />
-                  </PopoverContent>
-                </Popover>
+                <div className="space-y-2">
+                  <Label htmlFor="birthday-modal" className="text-white/80 flex items-center gap-2">
+                    <CalendarIcon className="h-4 w-4" />
+                    Birthday
+                  </Label>
+                  <input
+                    id="birthday-modal"
+                    type="date"
+                    value={birthdayValue}
+                    min={minDate}
+                    max={maxDate}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        birthday: v ? new Date(v + 'T12:00:00') : null,
+                      }));
+                    }}
+                    className="flex h-12 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 [color-scheme:dark]"
+                  />
+                </div>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
                 <Button type="submit" disabled={loading || !formData.birthday} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
                   {loading ? <Loader2 className="animate-spin" /> : 'Continue'} <ArrowRight className="ml-2 h-4 w-4" />

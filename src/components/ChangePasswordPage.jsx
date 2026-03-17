@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -8,6 +8,37 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
 import { ArrowLeft, KeyRound, Mail, CheckCircle, Loader2 } from 'lucide-react';
+
+const CHANGE_PASSWORD_DRAFT_KEY = 'horizons_change_password_draft';
+const DRAFT_TTL_MS = 15 * 60 * 1000; // 15 minutes
+
+function getDraft() {
+  try {
+    const raw = sessionStorage.getItem(CHANGE_PASSWORD_DRAFT_KEY);
+    if (!raw) return null;
+    const draft = JSON.parse(raw);
+    if (draft?.expiresAt && Date.now() < draft.expiresAt && draft.step === 'verification' && typeof draft.newPassword === 'string') {
+      return draft;
+    }
+  } catch (_) {}
+  return null;
+}
+
+function setDraft(newPassword) {
+  try {
+    sessionStorage.setItem(CHANGE_PASSWORD_DRAFT_KEY, JSON.stringify({
+      step: 'verification',
+      newPassword,
+      expiresAt: Date.now() + DRAFT_TTL_MS,
+    }));
+  } catch (_) {}
+}
+
+function clearDraft() {
+  try {
+    sessionStorage.removeItem(CHANGE_PASSWORD_DRAFT_KEY);
+  } catch (_) {}
+}
 
 export default function ChangePasswordPage() {
   const [newPassword, setNewPassword] = useState('');
@@ -19,11 +50,28 @@ export default function ChangePasswordPage() {
   const [success, setSuccess] = useState(false);
   const [redirectToSettings, setRedirectToSettings] = useState(false);
   const [inlineError, setInlineError] = useState(null);
+  const restoredFromDraft = useRef(false);
   const { user, profile, updateUserPassword, reauthenticate, resetPasswordForEmail } = useAuth();
   const { toast } = useToast();
 
   // Step 1: enter password and continue → show verification step (we always use code flow)
   const [showVerificationStep, setShowVerificationStep] = useState(false);
+
+  // Restore verification step and password from sessionStorage after tab reload / app refresh
+  useEffect(() => {
+    if (restoredFromDraft.current) return;
+    const draft = getDraft();
+    if (draft) {
+      restoredFromDraft.current = true;
+      setNewPassword(draft.newPassword);
+      setConfirmPassword(draft.newPassword);
+      setShowVerificationStep(true);
+      toast({
+        title: 'Welcome back',
+        description: 'Paste the verification code from your email below.',
+      });
+    }
+  }, [toast]);
 
   useEffect(() => {
     if (!success) return;
@@ -43,6 +91,7 @@ export default function ChangePasswordPage() {
       return;
     }
     setShowVerificationStep(true);
+    setDraft(newPassword);
   };
 
   const handleSendCode = async () => {
@@ -75,6 +124,7 @@ export default function ChangePasswordPage() {
         return;
       }
       setSuccess(true);
+      clearDraft();
       toast({
         title: 'Password updated',
         description: 'Taking you back to settings.',
@@ -235,7 +285,7 @@ export default function ChangePasswordPage() {
                       <Button
                         type="button"
                         variant="ghost"
-                        onClick={() => { setShowVerificationStep(false); setInlineError(null); }}
+                        onClick={() => { clearDraft(); setShowVerificationStep(false); setInlineError(null); }}
                         className="text-white/80 hover:text-white"
                       >
                         Back
