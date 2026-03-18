@@ -1,5 +1,5 @@
--- One event per external_id: add or join in a single RPC so we always set external_id on create.
--- Frontend uses this instead of join_external_event + create_event_with_invites for Discover "Add to calendar".
+-- Fix: INSERT had more target columns than expressions (missing address value).
+-- add_or_join_external_event was failing with 400 "INSERT has more target columns than expressions".
 
 CREATE OR REPLACE FUNCTION public.add_or_join_external_event(
   p_external_id text,
@@ -25,7 +25,6 @@ BEGIN
     RETURN jsonb_build_object('status', 'error', 'error', 'missing_external_id');
   END IF;
 
-  -- Try to join existing event with this external_id
   SELECT id INTO v_event_id FROM events WHERE external_id = v_ext_id LIMIT 1;
   IF v_event_id IS NOT NULL THEN
     INSERT INTO event_attendees (event_id, user_id)
@@ -45,7 +44,6 @@ BEGIN
     RETURN jsonb_build_object('status', 'joined', 'event_id', v_event_id);
   END IF;
 
-  -- Create new event with external_id set (so next person will join this one)
   INSERT INTO events (
     user_id,
     external_id,
@@ -99,5 +97,3 @@ BEGIN
   RETURN jsonb_build_object('status', 'created', 'event_id', v_event_id);
 END;
 $$;
-
-COMMENT ON FUNCTION public.add_or_join_external_event IS 'Add current user to calendar for an external event: join existing event (same external_id) or create one with external_id set. One event id per public external event.';

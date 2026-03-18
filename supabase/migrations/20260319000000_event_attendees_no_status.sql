@@ -1,5 +1,43 @@
--- One event per external_id: add or join in a single RPC so we always set external_id on create.
--- Frontend uses this instead of join_external_event + create_event_with_invites for Discover "Add to calendar".
+-- event_attendees has only (event_id, user_id) in this project — no "status" column.
+-- Replaces add_or_join_external_event and join_external_event accordingly.
+
+CREATE OR REPLACE FUNCTION public.join_external_event(p_external_id text)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_event_id uuid;
+  v_conv_id uuid;
+  v_uid uuid := auth.uid();
+BEGIN
+  IF v_uid IS NULL OR p_external_id IS NULL OR trim(p_external_id) = '' THEN
+    RETURN jsonb_build_object('status', 'not_found');
+  END IF;
+
+  SELECT id INTO v_event_id FROM events WHERE external_id = trim(p_external_id) LIMIT 1;
+  IF v_event_id IS NULL THEN
+    RETURN jsonb_build_object('status', 'not_found');
+  END IF;
+
+  INSERT INTO event_attendees (event_id, user_id)
+  SELECT v_event_id, v_uid
+  WHERE NOT EXISTS (
+    SELECT 1 FROM event_attendees ea
+    WHERE ea.event_id = v_event_id AND ea.user_id = v_uid
+  );
+
+  SELECT id INTO v_conv_id FROM conversations WHERE event_id = v_event_id LIMIT 1;
+  IF v_conv_id IS NOT NULL THEN
+    INSERT INTO conversation_participants (conversation_id, user_id)
+    VALUES (v_conv_id, v_uid)
+    ON CONFLICT (conversation_id, user_id) DO NOTHING;
+  END IF;
+
+  RETURN jsonb_build_object('status', 'joined', 'event_id', v_event_id);
+END;
+$$;
 
 CREATE OR REPLACE FUNCTION public.add_or_join_external_event(
   p_external_id text,
@@ -25,7 +63,6 @@ BEGIN
     RETURN jsonb_build_object('status', 'error', 'error', 'missing_external_id');
   END IF;
 
-  -- Try to join existing event with this external_id
   SELECT id INTO v_event_id FROM events WHERE external_id = v_ext_id LIMIT 1;
   IF v_event_id IS NOT NULL THEN
     INSERT INTO event_attendees (event_id, user_id)
@@ -45,7 +82,6 @@ BEGIN
     RETURN jsonb_build_object('status', 'joined', 'event_id', v_event_id);
   END IF;
 
-  -- Create new event with external_id set (so next person will join this one)
   INSERT INTO events (
     user_id,
     external_id,
@@ -99,5 +135,3 @@ BEGIN
   RETURN jsonb_build_object('status', 'created', 'event_id', v_event_id);
 END;
 $$;
-
-COMMENT ON FUNCTION public.add_or_join_external_event IS 'Add current user to calendar for an external event: join existing event (same external_id) or create one with external_id set. One event id per public external event.';

@@ -3,20 +3,18 @@ import { motion } from 'framer-motion';
 import FriendsEventFeed from '@/components/FriendsEventFeed';
 import SubscribedEventsPage from '@/components/SubscribedEventsPage';
 import DashboardContent from '@/components/DashboardContent';
-import { useEventData } from '@/hooks/useEventData';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Helmet } from 'react-helmet';
 import { getPageTitle, getMetaDescription, getOGTags, getTwitterTags, getCanonicalURL } from '@/lib/seoHelpers';
 
 const DashboardV2Page = ({
   events, setEvents, addEvent, deleteEvent, onEditEvent, searchQuery, setSearchQuery, imageOpacity,
-  onViewUserProfile, onViewFriendCalendar, setCurrentView, eventInvitesCount
+  onViewUserProfile, onViewFriendCalendar, setCurrentView, eventInvitesCount, refetchCalendar
 }) => {
   const scrollContainerRef = useRef(null);
   const mainPanelRef = useRef(null);
   const [discoverTab, setDiscoverTab] = useState('friends');
   const { user, profile } = useAuth();
-  const { fetchEvents } = useEventData(user, profile, events, setEvents);
 
   const ogTags = getOGTags('dashboard');
   const twitterTags = getTwitterTags('dashboard');
@@ -29,6 +27,43 @@ const DashboardV2Page = ({
       scrollContainerRef.current.scrollLeft = scrollLeftPosition;
     }
   }, []);
+
+  // Refetch calendar when user swipes to the calendar panel so added events (e.g. from Nearby) show up
+  useEffect(() => {
+    const root = scrollContainerRef.current;
+    const el = mainPanelRef.current;
+    if (!root || !el || typeof refetchCalendar !== 'function') return;
+    // Use scroll container as root so we only fire when the panel is visible inside the horizontal scroll
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) refetchCalendar();
+      },
+      { root, rootMargin: '0px', threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [refetchCalendar]);
+
+  // Backup: refetch on scroll when calendar panel comes into view (handles swipe without relying on IO root)
+  const lastFetchedForPanelRef = useRef(-1);
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    const panelEl = mainPanelRef.current;
+    if (!container || !panelEl || typeof refetchCalendar !== 'function') return;
+    const onScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const panelWidth = panelEl.offsetWidth;
+      const panelIndex = Math.round(scrollLeft / panelWidth);
+      if (panelIndex === 1 && lastFetchedForPanelRef.current !== 1) {
+        lastFetchedForPanelRef.current = 1;
+        refetchCalendar();
+      } else if (panelIndex !== 1) {
+        lastFetchedForPanelRef.current = panelIndex;
+      }
+    };
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [refetchCalendar]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -78,7 +113,7 @@ const DashboardV2Page = ({
               isInDashboardV2={true} 
               activeTab={discoverTab}
               onTabChange={setDiscoverTab}
-              fetchCalendarEvents={fetchEvents}
+              fetchCalendarEvents={refetchCalendar}
               addEvent={addEvent}
             />
           </Panel>

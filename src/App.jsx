@@ -136,7 +136,7 @@ const AppContent = () => {
   const { imageOpacity, setImageOpacity } = useAppSettings();
 
   // These hooks are now conditionally effective or lightweight initially
-  const { deleteAllEvents, deleteEvent, addEvent, updateEvent } = useEventData(user, profile, events, setEvents, (view) => navigate(`/${view}`));
+  const { deleteAllEvents, deleteEvent, addEvent, updateEvent, fetchEvents } = useEventData(user, profile, events, setEvents, (view) => navigate(`/${view}`));
   const { friendRequestCount, fetchFriendRequestCount } = useFriendRequests(user);
   const { unreadMessageCount, fetchUnreadCount } = useUnreadMessages(user);
   const { invites, refetchInvites } = useEventInvites();
@@ -243,7 +243,7 @@ const AppContent = () => {
 
         <Suspense fallback={<LoadingFallback />}>
             <Routes>
-            <Route path="dashboard" element={<PageTransition><DashboardV2Page events={events} setEvents={setEvents} addEvent={addEvent} deleteEvent={handleDeleteClick} onEditEvent={handleEditClick} imageOpacity={imageOpacity} onViewFriendCalendar={handleViewFriendCalendar} onViewUserProfile={handleViewUserProfile} setCurrentView={(view) => navigate(`/${view}`)} /></PageTransition>} />
+            <Route path="dashboard" element={<PageTransition><DashboardV2Page events={events} setEvents={setEvents} addEvent={addEvent} deleteEvent={handleDeleteClick} onEditEvent={handleEditClick} imageOpacity={imageOpacity} onViewFriendCalendar={handleViewFriendCalendar} onViewUserProfile={handleViewUserProfile} setCurrentView={(view) => navigate(`/${view}`)} refetchCalendar={fetchEvents} /></PageTransition>} />
             <Route path="add-event" element={<PageTransition><AddEvent addEvent={addEvent} /></PageTransition>} />
             <Route path="edit-event" element={<PageTransition><EditEvent updateEvent={updateEvent} /></PageTransition>} />
             <Route path="friends" element={<PageTransition><FriendsPage onRequestsHandled={fetchFriendRequestCount} onSelectConversation={handleSelectConversation} onViewFriendCalendar={handleViewFriendCalendar} onViewUserProfile={handleViewUserProfile} /></PageTransition>} />

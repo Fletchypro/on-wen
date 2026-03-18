@@ -208,9 +208,13 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
           toast({ title: 'Error', description: data?.error || 'Could not add event.', variant: 'destructive' });
           return;
         }
-        // Refetch calendar and feed so the new event shows on the dashboard immediately
-        if (fetchCalendarEvents) await fetchCalendarEvents();
-        if (fetchFeed) await fetchFeed();
+        // Refetch calendar from App state so the new event shows in the calendar panel immediately
+        if (typeof fetchCalendarEvents === 'function') {
+          await fetchCalendarEvents();
+        }
+        if (typeof fetchFeed === 'function') {
+          await fetchFeed();
+        }
         if (data?.status === 'joined') {
           toast({ title: 'Added to your calendar', description: "You're in the same event and group chat as everyone else who added this." });
         } else {
@@ -369,12 +373,7 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
                   exit={{ opacity: 0, y: -10 }}
                   className="mt-2 relative"
                 >
-                  {locationLoading && !selectedCity ? (
-                    <p className="text-sm text-white/70 mt-2 flex items-center gap-2">
-                      <MapPin className="h-4 w-4 animate-pulse" />
-                      Getting your location…
-                    </p>
-                  ) : selectedCity ? (
+                  {selectedCity ? (
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       <Badge
                         variant="secondary"
@@ -409,6 +408,12 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
                     </div>
                   ) : (
                     <div className="mt-2 space-y-2">
+                      {locationLoading && (
+                        <p className="text-sm text-white/70 flex items-center gap-2">
+                          <MapPin className="h-4 w-4 animate-pulse" />
+                          Getting your location…
+                        </p>
+                      )}
                       <div className="flex gap-2 flex-wrap items-center">
                         <CreatableSelect
                           options={cityOptions}

@@ -46,12 +46,11 @@ export default function ChangePasswordPage() {
   const [verificationCode, setVerificationCode] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [sendingCode, setSendingCode] = useState(false);
-  const [sendingLink, setSendingLink] = useState(false);
   const [success, setSuccess] = useState(false);
   const [redirectToSettings, setRedirectToSettings] = useState(false);
   const [inlineError, setInlineError] = useState(null);
   const restoredFromDraft = useRef(false);
-  const { user, profile, updateUserPassword, reauthenticate, resetPasswordForEmail } = useAuth();
+  const { user, profile, updateUserPassword, reauthenticate } = useAuth();
   const { toast } = useToast();
 
   // Step 1: enter password and continue → show verification step (we always use code flow)
@@ -135,30 +134,6 @@ export default function ChangePasswordPage() {
       setShowVerificationStep(false);
     } finally {
       setIsUpdating(false);
-    }
-  };
-
-  const handleSendResetLink = async () => {
-    const email = user?.email || profile?.email;
-    if (!email) {
-      toast({
-        variant: 'destructive',
-        title: 'No email',
-        description: 'Your account has no email. Add one in Settings first.',
-      });
-      return;
-    }
-    setInlineError(null);
-    setSendingLink(true);
-    const { error } = await resetPasswordForEmail(email);
-    setSendingLink(false);
-    if (error) {
-      setInlineError(error.message || 'Could not send reset link.');
-    } else {
-      toast({
-        title: 'Check your email',
-        description: 'We sent a link to ' + email + '. Use it to set a new password, then sign in.',
-      });
     }
   };
 
@@ -295,18 +270,6 @@ export default function ChangePasswordPage() {
                 </div>
               )}
 
-              <p className="text-white/50 text-sm mt-6">
-                Prefer a link by email? We’ll send you a reset link; use it to set a new password, then sign in again.
-              </p>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleSendResetLink}
-                disabled={sendingLink}
-                className="mt-2 w-full sm:w-auto bg-transparent border-white/20 text-white hover:bg-white/10"
-              >
-                {sendingLink ? <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Sending...</> : 'Email me a password reset link'}
-              </Button>
             </>
           )}
         </div>

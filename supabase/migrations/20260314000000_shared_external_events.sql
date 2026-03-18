@@ -26,9 +26,12 @@ BEGIN
     RETURN jsonb_build_object('status', 'not_found');
   END IF;
 
-  INSERT INTO event_attendees (event_id, user_id, status)
-  VALUES (v_event_id, v_uid, 'accepted')
-  ON CONFLICT (event_id, user_id) DO UPDATE SET status = 'accepted';
+  INSERT INTO event_attendees (event_id, user_id)
+  SELECT v_event_id, v_uid
+  WHERE NOT EXISTS (
+    SELECT 1 FROM event_attendees ea
+    WHERE ea.event_id = v_event_id AND ea.user_id = v_uid
+  );
 
   SELECT id INTO v_conv_id FROM conversations WHERE event_id = v_event_id LIMIT 1;
   IF v_conv_id IS NOT NULL THEN

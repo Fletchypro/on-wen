@@ -139,7 +139,8 @@ BEGIN
   END IF;
 
   SELECT user_id INTO v_creator_id FROM events WHERE id = p_event_id;
-  INSERT INTO conversations (event_id) VALUES (p_event_id) RETURNING id INTO v_conv_id;
+  v_creator_id := COALESCE(v_creator_id, v_uid);
+  INSERT INTO conversations (event_id, creator_id) VALUES (p_event_id, v_creator_id) RETURNING id INTO v_conv_id;
   INSERT INTO conversation_participants (conversation_id, user_id) VALUES (v_conv_id, v_creator_id)
   ON CONFLICT (conversation_id, user_id) DO NOTHING;
   INSERT INTO conversation_participants (conversation_id, user_id) VALUES (v_conv_id, v_uid)

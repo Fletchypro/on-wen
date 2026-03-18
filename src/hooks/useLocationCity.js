@@ -42,9 +42,15 @@ export function useLocationCity(options = {}) {
   const [error, setError] = useState(null);
   const attemptedRef = useRef(false);
 
+  const MAX_WAIT_MS = 12000; // Force-stop loading after 12s so UI never hangs
+
   const fetchCity = useCallback(async () => {
     setLoading(true);
     setError(null);
+    const forceStopTimer = setTimeout(() => {
+      setLoading(false);
+      attemptedRef.current = true;
+    }, MAX_WAIT_MS);
     try {
       const position = await new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
@@ -72,6 +78,7 @@ export function useLocationCity(options = {}) {
       setCity(null);
       onError?.(e);
     } finally {
+      clearTimeout(forceStopTimer);
       setLoading(false);
       attemptedRef.current = true;
     }
