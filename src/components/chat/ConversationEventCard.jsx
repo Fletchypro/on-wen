@@ -62,7 +62,7 @@ const ConversationEventCard = ({ conversation, onViewFriendCalendar }) => {
           style={{ objectPosition: event_details.image_position || 'center' }}
         />
       ) : (
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center">
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center">
           <Users size={32} className="text-white/60" />
         </div>
       )}

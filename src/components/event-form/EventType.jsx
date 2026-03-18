@@ -4,7 +4,7 @@ import { FormField } from '@/components/event-form/FormField';
 
 const baseEventTypes = [
   { value: 'personal', label: 'Personal', color: 'from-blue-500 to-indigo-600' },
-  { value: 'work', label: 'Work', color: 'from-purple-500 to-pink-600' },
+  { value: 'work', label: 'Work', color: 'from-sky-500 to-cyan-600' },
   { value: 'trip', label: 'Trip', color: 'from-green-500 to-teal-600' },
   { value: 'event', label: 'Event', color: 'from-cyan-500 to-blue-600' },
 ];

@@ -54,10 +54,10 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
         <ChevronLeft className="h-4 w-4" />
       </motion.button>
       <div className="flex gap-2">
-        <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('months')} className="font-semibold text-white hover:text-purple-300 transition-colors">
+        <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('months')} className="font-semibold text-white hover:text-sky-200 transition-colors">
           {months[currentMonth.getMonth()]}
         </motion.button>
-        <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('years')} className="font-semibold text-white hover:text-purple-300 transition-colors">
+        <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('years')} className="font-semibold text-white hover:text-sky-200 transition-colors">
           {currentMonth.getFullYear()}
         </motion.button>
       </div>
@@ -102,9 +102,9 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
                 head_row: "flex justify-around",
                 head_cell: "text-white/50 rounded-md w-9 font-normal text-[0.8rem]",
                 row: "flex w-full mt-2 justify-around",
-                cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-purple-500/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-sky-500/45 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                 day: cn(buttonVariants({ variant: "ghost" }), "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-white hover:bg-white/10 hover:text-white rounded-full transition-colors"),
-                day_selected: "bg-purple-600 text-primary-foreground hover:bg-purple-700 hover:text-primary-foreground focus:bg-purple-600 focus:text-primary-foreground rounded-full",
+                day_selected: "bg-sky-600 text-primary-foreground hover:bg-sky-500 hover:text-primary-foreground focus:bg-sky-600 focus:text-primary-foreground rounded-full",
                 day_today: "bg-white/10 text-white rounded-full",
                 day_outside: "day-outside text-white/40 opacity-50",
                 day_disabled: "text-white/30 opacity-50",
@@ -119,10 +119,10 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
         {view === 'months' && (
           <motion.div key="months" initial="exit" animate="enter" exit="exit" variants={viewVariants} transition={{ duration: 0.2 }} className="p-2">
             <div className="flex justify-between items-center mb-4">
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('days')} className="text-lg font-bold text-white hover:text-purple-300 transition-colors">
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('days')} className="text-lg font-bold text-white hover:text-sky-200 transition-colors">
                 &larr; Back
               </motion.button>
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('years')} className="text-lg font-bold text-white hover:text-purple-300 transition-colors">
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('years')} className="text-lg font-bold text-white hover:text-sky-200 transition-colors">
                 {currentMonth.getFullYear()}
               </motion.button>
             </div>
@@ -135,7 +135,7 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
                   onClick={() => handleMonthSelect(i)}
                   className={cn("p-3 rounded-lg text-center text-sm font-medium transition-colors",
                     i === new Date().getMonth() && currentMonth.getFullYear() === new Date().getFullYear() ? "bg-white/20" : "hover:bg-white/10",
-                    i === currentMonth.getMonth() && "bg-purple-600 text-white"
+                    i === currentMonth.getMonth() && "bg-sky-600 text-white"
                   )}
                 >
                   {month}
@@ -147,7 +147,7 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
         {view === 'years' && (
           <motion.div key="years" initial="exit" animate="enter" exit="exit" variants={viewVariants} transition={{ duration: 0.2 }} className="p-2">
             <div className="flex justify-between items-center mb-4">
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('months')} className="text-lg font-bold text-white hover:text-purple-300 transition-colors">
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setView('months')} className="text-lg font-bold text-white hover:text-sky-200 transition-colors">
                 &larr; Back
               </motion.button>
               <span className="text-lg font-bold text-white/80">Select Year</span>
@@ -161,7 +161,7 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
                   onClick={() => handleYearSelect(year)}
                   className={cn("p-2 rounded-lg text-center text-sm font-medium transition-colors",
                     year === new Date().getFullYear() ? "bg-white/20" : "hover:bg-white/10",
-                    year === currentMonth.getFullYear() && "bg-purple-600 text-white"
+                    year === currentMonth.getFullYear() && "bg-sky-600 text-white"
                   )}
                 >
                   {year}
@@ -175,7 +175,7 @@ const CustomCalendar = ({ className, classNames, showOutsideDays = true, ...prop
         <Button 
           onClick={handleConfirm}
           disabled={!pickedDate}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
+          className="bg-sky-600 hover:bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
         >
           <CheckCircle size={16} />
           Confirm

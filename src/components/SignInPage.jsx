@@ -77,7 +77,7 @@ const EmailSignInForm = ({ onSwitchToPhoneSignIn }) => {
                 <FloatingInput id="password-signin" type="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </motion.div>
             <motion.div variants={itemVariants} className="text-right">
-                <Link to="/reset-password" className="text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors">
+                <Link to="/reset-password" className="text-sm font-medium text-sky-300 hover:text-sky-200 transition-colors">
                     Forgot Password?
                 </Link>
             </motion.div>
@@ -147,14 +147,14 @@ const PhoneSignInForm = ({ onSwitchToEmailSignIn }) => {
             )}
              <motion.div variants={itemVariants}>
                 <div className={cn(
-                  "relative group h-14 w-full rounded-2xl border-2 border-transparent bg-neutral-900/50 text-base text-white ring-offset-black transition-colors focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-offset-2 focus-within:border-purple-500",
+                  "relative group h-14 w-full rounded-2xl border-2 border-transparent bg-neutral-900/50 text-base text-white ring-offset-black transition-colors focus-within:ring-2 focus-within:ring-sky-500 focus-within:ring-offset-2 focus-within:border-sky-400",
                   (error && error.toLowerCase().includes('phone')) && "border-red-500/50",
-                  !error && "focus-within:border-purple-500"
+                  !error && "focus-within:border-sky-400"
                 )}>
                   <label 
                     htmlFor="phone-signin"
                     className={cn("absolute left-4 transition-all duration-300 pointer-events-none", 
-                      phone ? 'top-1.5 text-xs text-purple-400' : 'top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:top-1.5 group-focus-within:text-xs group-focus-within:text-purple-400'
+                      phone ? 'top-1.5 text-xs text-sky-300' : 'top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:top-1.5 group-focus-within:text-xs group-focus-within:text-sky-300'
                     )}>
                     Phone Number
                   </label>
@@ -174,7 +174,7 @@ const PhoneSignInForm = ({ onSwitchToEmailSignIn }) => {
                 <FloatingInput id="password-phone-signin" type="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} required hasError={error && error.toLowerCase().includes('password')} />
             </motion.div>
             <motion.div variants={itemVariants} className="text-right">
-                <Link to="/reset-password" className="text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors">
+                <Link to="/reset-password" className="text-sm font-medium text-sky-300 hover:text-sky-200 transition-colors">
                     Forgot Password?
                 </Link>
             </motion.div>
@@ -184,7 +184,7 @@ const PhoneSignInForm = ({ onSwitchToEmailSignIn }) => {
                 </Button>
             </motion.div>
             <motion.div variants={itemVariants} className="text-center">
-                <Button type="button" variant="link" onClick={onSwitchToEmailSignIn} className="w-full text-purple-400 hover:text-purple-300 flex items-center justify-center gap-2">
+                <Button type="button" variant="link" onClick={onSwitchToEmailSignIn} className="w-full text-sky-300 hover:text-sky-200 flex items-center justify-center gap-2">
                     <Mail size={16} /> Use Email Instead
                 </Button>
             </motion.div>
@@ -232,7 +232,7 @@ const SignInPage = () => {
                         />
                     </Link>
                 </div>
-                <div className="bg-black/40 backdrop-blur-2xl p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl shadow-purple-900/20">
+                <div className="liquid-glass-elevated p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-cyan-400/20 shadow-2xl shadow-cyan-950/30">
                     <div className="text-center mb-8">
                         <motion.h1
                             initial={{ opacity: 0, y: -10 }}
@@ -266,7 +266,7 @@ const SignInPage = () => {
                     >
                         <p className="text-sm text-neutral-400">
                             Don't have an account?{' '}
-                            <Link to="/signup" className="font-semibold text-purple-400 hover:text-purple-300 transition-colors">Sign Up</Link>
+                            <Link to="/signup" className="font-semibold text-sky-300 hover:text-sky-200 transition-colors">Sign Up</Link>
                         </p>
                     </motion.div>
                 </div>

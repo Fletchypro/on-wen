@@ -2,11 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
-import { useTheme } from '@/contexts/ThemeContext';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare } from 'lucide-react';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
-import { getDisplayName, getInitials } from '@/lib/utils';
+import { getDisplayName, getInitials, appPageTitleClass } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import ConversationEventCard from '@/components/chat/ConversationEventCard';
 
@@ -33,7 +32,6 @@ const pageVariants = {
 
 const ConversationList = ({ onSelectConversation, onViewFriendCalendar }) => {
     const { user } = useAuth();
-    const { theme } = useTheme();
     const [conversations, setConversations] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -149,7 +147,7 @@ const ConversationList = ({ onSelectConversation, onViewFriendCalendar }) => {
         >
           <motion.div className="flex-shrink-0" variants={itemVariants}>
             <div className="mb-2 mt-10 flex justify-between items-center">
-              <h1 className={`text-4xl md:text-6xl font-bold tracking-tighter ${theme.headerColor}`}>
+              <h1 className={appPageTitleClass}>
                 Messages
               </h1>
               <NewChatDialog onConversationCreated={onSelectConversation} />

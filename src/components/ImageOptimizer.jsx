@@ -103,7 +103,7 @@ const ImageOptimizer = ({
         ref={containerRef}
         className={cn(
           isEventFallback
-            ? 'flex items-center justify-center bg-gradient-to-br from-violet-600/80 via-purple-700/80 to-indigo-800/80 rounded-md'
+            ? 'flex items-center justify-center bg-gradient-to-br from-slate-600/85 via-slate-700/80 to-slate-900/85 rounded-md'
             : 'bg-gray-200 dark:bg-gray-800 animate-pulse rounded-md',
           className
         )}

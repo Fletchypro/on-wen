@@ -19,7 +19,7 @@ const DateInput = ({ value, onChange, ...props }) => {
       value={value || ''}
       onChange={handleChange}
       className={cn(
-        "relative w-full p-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-purple-500 transition-all",
+        "relative w-full p-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-sky-500 transition-all",
         "bg-transparent text-white focus:outline-none appearance-none",
         "text-lg font-mono tracking-wider",
         "[&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:cursor-pointer"

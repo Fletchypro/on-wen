@@ -22,7 +22,7 @@ import React from 'react';
             <Rocket size={22}/>
             Our Other Apps
           </h2>
-          <div className="p-4 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg space-y-3">
+          <div className="p-4 rounded-xl glass-light border border-white/10 shadow-lg space-y-3">
             <div 
               className="flex items-center gap-4 p-3 -m-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
               onClick={handleYooshieClick}

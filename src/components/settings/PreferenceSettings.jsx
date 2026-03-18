@@ -12,15 +12,15 @@ const PreferenceSettings = ({ imageOpacity, setImageOpacity }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <Card className="p-6 bg-white/5 border-white/10 text-white">
+      <Card className="p-6 text-white">
         <div className="space-y-6">
           <div className="flex flex-col space-y-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="image-opacity-slider" className="flex items-center text-md font-semibold">
-                <Image className="mr-3 h-5 w-5 text-purple-400" />
+                <Image className="mr-3 h-5 w-5 text-sky-300" />
                 Event Image Opacity
               </Label>
-              <span className="text-lg font-bold text-purple-300 w-16 text-right">
+              <span className="text-lg font-bold text-sky-200 w-16 text-right">
                 {Math.round(imageOpacity * 100)}%
               </span>
             </div>

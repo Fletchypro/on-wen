@@ -49,7 +49,7 @@ const LiquidSlider = React.forwardRef(({ className, value, onValueChange, min, m
       <SliderPrimitive.Track className="relative h-4 w-full grow overflow-hidden rounded-full bg-white/10">
         <SliderPrimitive.Range asChild>
           <motion.div 
-            className="absolute h-full bg-gradient-to-r from-purple-500 to-indigo-600"
+            className="absolute h-full bg-gradient-to-r from-sky-500 to-cyan-600"
             style={{ width: `${percentage}%` }}
             animate={{ scaleY: isHovered || isActive ? 1.5 : 1 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -58,7 +58,7 @@ const LiquidSlider = React.forwardRef(({ className, value, onValueChange, min, m
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb asChild>
         <motion.div 
-          className="block h-6 w-6 rounded-full border-2 border-purple-300 bg-white shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          className="block h-6 w-6 rounded-full border-2 border-sky-200/80 bg-white shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
           style={{ x: springThumbX, scale }}
           onPointerLeave={handlePointerLeave}
         />

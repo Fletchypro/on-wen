@@ -28,10 +28,14 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 270 70% 70%;
+    --ring: 199 89% 48%;
+    --liquid-highlight: rgba(255, 255, 255, 0.22);
+    --liquid-edge: rgba(255, 255, 255, 0.14);
+    --liquid-shine: rgba(255, 255, 255, 0.06);
     --radius: 0.5rem;
     --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.15);
     --shadow-elevated: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+    --theme-atmosphere: 56 189 248;
   }
 
   /* Task 2: Font Display Swap & Metric Normalization */
@@ -67,14 +71,147 @@
   }
 }
 
-.glass-light {
-  @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl;
-  contain: paint; /* Task 5 */
+/* —— App atmosphere: tints follow selected theme (--theme-atmosphere = "R G B") —— */
+.app-liquid-atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.5s ease;
+  background:
+    radial-gradient(ellipse 100% 70% at 15% 5%, rgb(var(--theme-atmosphere) / 0.26), transparent 52%),
+    radial-gradient(ellipse 80% 55% at 92% 18%, rgb(var(--theme-atmosphere) / 0.14), transparent 48%),
+    radial-gradient(ellipse 70% 50% at 50% 95%, rgb(var(--theme-atmosphere) / 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 70% 55%, rgb(var(--theme-atmosphere) / 0.06), transparent 45%);
 }
 
-.glass-strong {
-  @apply bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl;
-  contain: paint; /* Task 5 */
+/* Landing + marketing pages (classes were missing — backgrounds were invisible) */
+.immersive-bg {
+  background: linear-gradient(165deg, #070b12 0%, #0a1624 28%, #0c1e2e 55%, #081018 100%);
+}
+.immersive-bg-glow {
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(ellipse 75% 55% at 18% 12%, rgba(56, 189, 248, 0.38), transparent 55%),
+    radial-gradient(ellipse 65% 45% at 88% 25%, rgba(34, 211, 238, 0.22), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 45% 88%, rgba(14, 165, 233, 0.2), transparent 48%);
+  pointer-events: none;
+}
+
+/* —— Liquid Glass (Apple-style frost: depth, saturation, specular edge) —— */
+.glass,
+.glass-light,
+.liquid-glass-light {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--liquid-edge);
+  box-shadow:
+    inset 0 1px 0 0 var(--liquid-shine),
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: 0.875rem;
+  contain: paint;
+}
+
+.glass-strong,
+.liquid-glass,
+.liquid-glass-strong {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.06) 42%,
+    rgba(255, 255, 255, 0.025) 100%
+  );
+  backdrop-filter: blur(36px) saturate(180%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  contain: paint;
+}
+
+/* Nav bar: same glass, no accent border so it fits every theme */
+.nav-glass-bar {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(32px) saturate(170%);
+  -webkit-backdrop-filter: blur(32px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+/* Top specular streak (nav, hero cards) */
+.liquid-specular {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.1) 48%,
+    rgba(255, 255, 255, 0.03) 58%,
+    transparent 75%
+  );
+  opacity: 0.85;
+}
+
+.nav-glass {
+  position: relative;
+  overflow: hidden;
+}
+.nav-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Auth / modal elevated glass */
+.liquid-glass-elevated {
+  background: linear-gradient(
+    175deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  backdrop-filter: blur(48px) saturate(190%);
+  -webkit-backdrop-filter: blur(48px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 24px 64px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 1.25rem;
 }
 
 /* Task 5: Use transform for animations instead of layout properties */
@@ -110,5 +247,21 @@
   }
   .hover-scale:hover {
     transform: none;
+  }
+}
+
+/* Softer glass + no heavy blur for reduced transparency preference */
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-light,
+  .liquid-glass-light,
+  .glass-strong,
+  .liquid-glass,
+  .liquid-glass-strong,
+  .liquid-glass-elevated,
+  .nav-glass-bar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(28, 28, 32, 0.94);
   }
 }

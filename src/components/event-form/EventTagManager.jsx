@@ -112,7 +112,7 @@ const EventTagManager = ({ selectedTag, setSelectedTag, tags, loading, createTag
                 onChange={(e) => setNewTagName(e.target.value)}
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
               />
-              <Button type="button" onClick={handleCreate} className="bg-purple-600 hover:bg-purple-700">Save</Button>
+              <Button type="button" onClick={handleCreate} className="bg-sky-600 hover:bg-sky-500">Save</Button>
               <Button type="button" onClick={() => setIsCreating(false)} variant="ghost">Cancel</Button>
             </motion.div>
           )}

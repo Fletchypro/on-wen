@@ -11,6 +11,7 @@ import { useUserProfile } from '@/hooks/useUserProfile';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet';
 import { getPageTitle, getMetaDescription, getOGTags, getTwitterTags, getCanonicalURL } from '@/lib/seoHelpers';
+import { appPageTitleClass } from '@/lib/utils';
 
 const initialFormData = {
   title: '',
@@ -159,15 +160,15 @@ const AddEvent = ({ addEvent }) => {
       >
         <div className="flex items-center justify-between mt-6 mb-4 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-4xl font-bold text-white">Add Event</h1>
+            <h1 className={appPageTitleClass}>Add Event</h1>
             <Button
               type="button"
               onClick={handleAutoGenerate}
               variant="outline"
               size="sm"
-              className="gap-2 bg-purple-500/10 border-purple-500/50 hover:bg-purple-500/20 text-purple-200 backdrop-blur-sm"
+              className="gap-2 bg-sky-500/12 border-sky-400/40 hover:bg-sky-500/15 text-sky-100 backdrop-blur-sm"
             >
-              <Sparkles size={16} className="text-purple-300" />
+              <Sparkles size={16} className="text-sky-200" />
               <span className="hidden sm:inline">Auto Generate</span>
             </Button>
           </div>
@@ -209,7 +210,7 @@ const AddEvent = ({ addEvent }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="w-full p-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600
+                className="w-full p-4 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-600
                          text-white font-semibold flex items-center justify-center space-x-2
                          shadow-lg hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}

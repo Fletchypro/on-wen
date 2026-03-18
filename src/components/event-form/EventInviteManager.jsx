@@ -69,7 +69,7 @@ const EventInviteManager = ({ friends, selectedFriends, setSelectedFriends, even
           />
         </div>
 
-        <div className="space-y-4 p-4 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
+        <div className="space-y-4 p-4 glass-light rounded-xl border border-white/10">
           {creator && (
             <AttendeeList
               title="Creator"

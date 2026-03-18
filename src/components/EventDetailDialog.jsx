@@ -349,13 +349,13 @@ const EventDetailDialog = ({
                                         <DialogHeader className="mb-4">
                                             <DialogTitle className="text-xl font-bold tracking-tighter mb-1">{localEvent.title}</DialogTitle>
                                             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-foreground/80">
-                                                <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-purple-400" /> <span>{formattedDate}</span></div>
-                                                <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-purple-400" /> <span>{formattedTime}</span></div>
+                                                <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-sky-300" /> <span>{formattedDate}</span></div>
+                                                <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-sky-300" /> <span>{formattedTime}</span></div>
                                             </div>
                                         </DialogHeader>
 
                                         {localEvent.location && (
-                                            <div className="flex items-center gap-2 text-sm mb-4"><MapPin className="w-4 h-4 text-purple-400" /> <span>{localEvent.location}</span></div>
+                                            <div className="flex items-center gap-2 text-sm mb-4"><MapPin className="w-4 h-4 text-sky-300" /> <span>{localEvent.location}</span></div>
                                         )}
 
                                         {(() => {
@@ -379,7 +379,7 @@ const EventDetailDialog = ({
                                             return (
                                                 <>
                                                     {ticketUrl && (
-                                                        <Button asChild className="mb-4 bg-purple-600 hover:bg-purple-500 text-white font-semibold gap-2">
+                                                        <Button asChild className="mb-4 bg-sky-600 hover:bg-sky-500 text-white font-semibold gap-2">
                                                             <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
                                                                 <Ticket className="w-4 h-4" />
                                                                 Buy tickets
@@ -393,11 +393,11 @@ const EventDetailDialog = ({
 
                                         <div className="flex items-center justify-between mb-4">
                                             <h3 className="font-semibold text-lg flex items-center gap-2">
-                                                <Users className="w-5 h-5 text-purple-400" />
+                                                <Users className="w-5 h-5 text-sky-300" />
                                                 Attendees ({sortedAttendees.length})
                                             </h3>
                                             {(isCreator || isAttendee) && (
-                                                <Button size="sm" variant="ghost" onClick={() => setIsInviteFriendsOpen(true)} className="flex items-center gap-2 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300">
+                                                <Button size="sm" variant="ghost" onClick={() => setIsInviteFriendsOpen(true)} className="flex items-center gap-2 text-sky-300 hover:bg-sky-500/15 hover:text-sky-200">
                                                     <UserPlus className="w-4 h-4" />
                                                     Invite
                                                 </Button>
@@ -414,7 +414,7 @@ const EventDetailDialog = ({
                                             <div className="mb-8">
                                                 <Button
                                                     variant="link"
-                                                    className="p-0 h-auto text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                                                    className="p-0 h-auto text-sky-300 hover:text-sky-200 flex items-center gap-1"
                                                     onClick={() => setIsAttendeesExpanded(!isAttendeesExpanded)}
                                                 >
                                                     {isAttendeesExpanded ? 'Show less' : `See all ${hiddenCount} more`}
@@ -454,7 +454,7 @@ const EventDetailDialog = ({
                                                                 <PopoverTrigger asChild>
                                                                     <Button
                                                                         variant="outline"
-                                                                        className="flex items-center gap-2 bg-transparent border-white/20 hover:bg-white/10 text-purple-400 border-purple-500/30 hover:bg-purple-500/10 font-semibold transition-colors"
+                                                                        className="flex items-center gap-2 bg-transparent border-white/20 hover:bg-white/10 text-sky-300 border-sky-400/30 hover:bg-sky-500/15 font-semibold transition-colors"
                                                                     >
                                                                         {renderSizeIcon(localEvent.priority)}
                                                                         Size

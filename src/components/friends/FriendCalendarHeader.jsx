@@ -41,7 +41,7 @@ import React, { useState, useRef } from 'react';
             originRect={originRect}
           />
           <div className="relative p-4 rounded-2xl glass-strong text-white overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-transparent to-transparent opacity-50" />
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-500/12 via-transparent to-transparent opacity-50" />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

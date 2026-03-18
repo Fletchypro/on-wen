@@ -29,7 +29,7 @@ const HeroOptimized = memo(() => {
         <Button
           asChild
           size="lg"
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-8 rounded-full text-lg group hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-transform will-change-transform"
+          className="bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-bold py-4 px-8 rounded-full text-lg group hover:from-sky-600 hover:to-cyan-700 transform hover:scale-105 transition-transform will-change-transform"
         >
           <Link to="/signup">
             Get Started Free

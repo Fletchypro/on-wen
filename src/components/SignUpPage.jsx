@@ -168,7 +168,7 @@ const EmailSignUpForm = () => {
             <Button 
                 type="submit" 
                 disabled={loading} 
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold flex items-center justify-center gap-2"
             >
                 {loading ? 'Creating account…' : <><UserPlus size={18} /> Sign Up with Email</>}
             </Button>
@@ -385,7 +385,7 @@ const SignUpPage = () => {
                     </Tabs>
                     <div className="text-center mt-6">
                         <span className="text-white/70">Already have an account? </span>
-                        <Link to="/login" className="font-semibold text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign in</Link>
+                        <Link to="/login" className="font-semibold text-sky-300 hover:text-sky-200 hover:underline transition-colors">Sign in</Link>
                     </div>
                 </div>
             </motion.div>

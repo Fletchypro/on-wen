@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
+import { THEME_STORAGE_KEY } from '@/contexts/themePresets';
 import { useToast } from '@/components/ui/use-toast';
 
 const AuthContext = createContext(undefined);
@@ -127,6 +128,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
+    try {
+      localStorage.removeItem(THEME_STORAGE_KEY);
+    } catch (_) { /* ignore */ }
     await supabase.auth.signOut();
   }, []);
 

@@ -27,7 +27,7 @@ const EventFilters = ({ filter, setFilter, events, setSelectedMonth, tags, tagFi
 
   return (
     <motion.div 
-      className="p-4 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/20 text-white"
+      className="p-4 rounded-2xl glass-light border border-white/10 text-white"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

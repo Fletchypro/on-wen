@@ -64,9 +64,9 @@ const MessageInput = ({ newMessage, setNewMessage, imagePreview, setImagePreview
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Type a message..."
-                    className="w-full p-3 rounded-full bg-black/20 backdrop-blur-sm border-2 border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                    className="w-full p-3 rounded-full bg-black/20 backdrop-blur-sm border-2 border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                 />
-                <Button type="submit" size="icon" className="rounded-full bg-purple-600 hover:bg-purple-700 flex-shrink-0" disabled={isSending}>
+                <Button type="submit" size="icon" className="rounded-full bg-sky-600 hover:bg-sky-500 flex-shrink-0" disabled={isSending}>
                     <Send size={20} />
                 </Button>
             </form>

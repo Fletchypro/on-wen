@@ -14,7 +14,7 @@ const FriendTabs = ({ tabs, activeTab, setActiveTab }) => {
           {activeTab === tab.id && (
             <motion.div
               layoutId="active-pill"
-              className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full"
+              className="absolute inset-0 bg-gradient-to-r from-sky-500 to-cyan-600 rounded-full"
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             />
           )}

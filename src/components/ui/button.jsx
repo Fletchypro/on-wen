@@ -5,7 +5,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const buttonVariants = cva(
-	'inline-flex items-center justify-center rounded-xl text-base font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 min-h-[44px]',
+	'inline-flex items-center justify-center rounded-xl text-base font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 min-h-[44px]',
 	{
 		variants: {
 			variant: {
@@ -18,7 +18,7 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
 				link: 'text-primary underline-offset-4 hover:underline',
-        glow: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_20px_theme(colors.purple.600)] hover:shadow-[0_0_30px_theme(colors.purple.500)]'
+        glow: 'bg-gradient-to-r from-sky-500 to-cyan-600 text-white shadow-[0_0_24px_rgba(56,189,248,0.35)] hover:shadow-[0_0_36px_rgba(34,211,238,0.4)] border border-white/15'
 			},
 			size: {
 				default: 'h-12 px-6 py-2',

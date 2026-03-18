@@ -81,13 +81,13 @@ import React, { useState } from 'react';
               initial="hidden"
               animate="visible"
               custom={0.2}
-              className="lg:col-span-3 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10"
+              className="lg:col-span-3 p-6 sm:p-8 glass-light rounded-2xl border border-white/10"
             >
               <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
               <Accordion type="single" collapsible className="w-full">
                 {faqItems.map((item, index) => (
                   <AccordionItem value={`item-${index}`} key={index}>
-                    <AccordionTrigger className="text-left text-lg hover:no-underline focus:text-purple-300">
+                    <AccordionTrigger className="text-left text-lg hover:no-underline focus:text-sky-200">
                       {item.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-white/70 text-base leading-relaxed">
@@ -103,19 +103,19 @@ import React, { useState } from 'react';
               initial="hidden"
               animate="visible"
               custom={0.4}
-              className="lg:col-span-2 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 h-fit"
+              className="lg:col-span-2 p-6 sm:p-8 glass-light rounded-2xl border border-white/10 h-fit"
             >
               <h2 className="text-2xl font-bold mb-2">Need More Help?</h2>
-              <p className="text-white/70 mb-6">Send us a message and we’ll get back to you soon. Or email us at <a href="mailto:support@onwen.com" className="underline hover:text-purple-300 transition-colors">support@onwen.com</a>.</p>
+              <p className="text-white/70 mb-6">Send us a message and we’ll get back to you soon. Or email us at <a href="mailto:support@onwen.com" className="underline hover:text-sky-200 transition-colors">support@onwen.com</a>.</p>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Textarea
                   placeholder="Type your message here..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={5}
-                  className="bg-black/20 border-white/20 focus:ring-purple-500 focus:border-purple-500"
+                  className="bg-black/20 border-white/20 focus:ring-sky-500 focus:border-sky-400"
                 />
-                <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg group transition-all duration-300">
+                <Button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold text-lg group transition-all duration-300">
                   Send Message <Mail className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
               </form>

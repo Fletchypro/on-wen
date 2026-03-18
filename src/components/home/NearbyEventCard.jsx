@@ -21,7 +21,7 @@ const NearbyEventCard = ({ event, onJoinEvent }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="relative rounded-2xl overflow-hidden shadow-lg group bg-white/10 backdrop-blur-xl border border-white/20"
+            className="relative rounded-2xl overflow-hidden shadow-lg group glass-light border border-white/10"
         >
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${getPriorityColor(event.priority)}`} />
 

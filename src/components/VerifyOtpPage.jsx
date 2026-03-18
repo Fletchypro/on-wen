@@ -191,7 +191,7 @@ const VerifyOtpPage = () => {
                 />
             </Link>
         </div>
-        <div className="bg-black/40 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 shadow-2xl shadow-purple-900/20">
+        <div className="liquid-glass-elevated p-8 rounded-3xl border border-cyan-400/20 shadow-2xl shadow-cyan-950/30">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -200,11 +200,11 @@ const VerifyOtpPage = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-6">
                  <div className="mx-auto bg-white/10 rounded-full h-20 w-20 flex items-center justify-center mb-4 border-2 border-white/10 shadow-lg">
-                    {verificationType === 'email' ? <Mail className="w-10 h-10 text-purple-400"/> : <Smartphone className="w-10 h-10 text-purple-400"/>}
+                    {verificationType === 'email' ? <Mail className="w-10 h-10 text-sky-300"/> : <Smartphone className="w-10 h-10 text-sky-300"/>}
                 </div>
               <h1 className="text-4xl font-bold tracking-tight text-white">Check Your {verificationType === 'email' ? 'Email' : 'Phone'}</h1>
               <p className="text-neutral-300 mt-3">
-                We sent a 6-digit code to <br/> <span className="font-semibold text-purple-300">{verificationTarget}</span>.
+                We sent a 6-digit code to <br/> <span className="font-semibold text-sky-200">{verificationTarget}</span>.
               </p>
             </motion.div>
             <form onSubmit={handleSubmit}>
@@ -215,7 +215,7 @@ const VerifyOtpPage = () => {
                         type="tel"
                         name="otp"
                         maxLength="1"
-                        className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-bold bg-neutral-900/50 border-2 border-neutral-700 text-white focus:ring-purple-500 focus:border-purple-500 rounded-xl"
+                        className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-bold bg-neutral-900/50 border-2 border-neutral-700 text-white focus:ring-sky-500 focus:border-sky-400 rounded-xl"
                         value={data}
                         onChange={e => handleChange(e.target, index)}
                         onKeyDown={e => handleKeyDown(e, index)}
@@ -239,7 +239,7 @@ const VerifyOtpPage = () => {
                 type="button"
                 onClick={handleResendCode}
                 disabled={resendLoading || resendCooldown > 0}
-                className="text-purple-400 hover:text-purple-300 disabled:text-neutral-500 disabled:no-underline transition-colors"
+                className="text-sky-300 hover:text-sky-200 disabled:text-neutral-500 disabled:no-underline transition-colors"
               >
                 {resendLoading ? <Loader2 className="animate-spin mr-2" /> : <RefreshCw size={14} className="mr-2" />}
                 {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
@@ -248,7 +248,7 @@ const VerifyOtpPage = () => {
             <motion.div variants={itemVariants} className="mt-4 text-center text-sm">
                 <Link to="/signup" className="text-neutral-400 hover:text-neutral-200 transition-colors">Back to sign up</Link>
                 <span className="text-neutral-500 mx-1">·</span>
-                <Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors">Sign in instead</Link>
+                <Link to="/login" className="text-sky-300 hover:text-sky-200 transition-colors">Sign in instead</Link>
              </motion.div>
            </motion.div>
           </div>

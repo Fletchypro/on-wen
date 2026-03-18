@@ -34,7 +34,7 @@ const FloatingInput = React.forwardRef(({ className, type, label, id, value, ...
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "h-14 w-full rounded-2xl border-2 border-transparent bg-neutral-900/50 px-4 pt-4 pb-2 text-base text-white ring-offset-black transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:border-purple-500 disabled:cursor-not-allowed disabled:opacity-50",
+          "h-14 w-full rounded-2xl border-2 border-transparent bg-neutral-900/50 px-4 pt-4 pb-2 text-base text-white ring-offset-black transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:border-sky-400 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}
@@ -58,7 +58,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
     (<input
       type={type}
       className={cn(
-        "flex h-11 min-h-[44px] w-full rounded-xl border border-input bg-white/10 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/80 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white",
+        "flex h-11 min-h-[44px] w-full rounded-xl border border-input bg-white/10 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white",
         className
       )}
       ref={ref}

@@ -43,7 +43,7 @@ import React from 'react';
             ))}
           </div>
           {publicAttendees.length > 0 && (
-            <div className="text-purple-400 text-[0.6rem] font-bold ml-1.5">
+            <div className="text-sky-300 text-[0.6rem] font-bold ml-1.5">
               +{publicAttendees.length}
             </div>
           )}

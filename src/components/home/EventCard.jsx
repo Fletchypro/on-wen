@@ -149,7 +149,7 @@ const EventCard = ({
             </h3>
             {event.location && (
               <div className="flex items-center gap-1.5 text-white/90 min-w-0">
-                <MapPin className="h-3 w-3 text-purple-400 flex-shrink-0" />
+                <MapPin className="h-3 w-3 text-sky-300 flex-shrink-0" />
                 <span className="font-semibold uppercase text-[10px] truncate">{event.location}</span>
               </div>
             )}

@@ -65,7 +65,7 @@ const SearchUsers = ({ query, onSearchChange, results, onSendRequest, loading })
         return <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30"><Clock size={14} className="mr-2" /> Request Received</Badge>;
       default:
         return (
-          <Button onClick={() => onSendRequest(user.id)} size="sm" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold shadow-lg hover:shadow-purple-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+          <Button onClick={() => onSendRequest(user.id)} size="sm" className="bg-gradient-to-r from-sky-500 to-cyan-600 hover:from-sky-600 hover:to-cyan-700 text-white font-semibold shadow-lg hover:shadow-sky-500/35 transition-all duration-300 transform hover:-translate-y-0.5">
             <UserPlus size={16} className="mr-2" /> Add Friend
           </Button>
         );
@@ -81,7 +81,7 @@ const SearchUsers = ({ query, onSearchChange, results, onSendRequest, loading })
           value={query}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search by name, username, or email..."
-          className="w-full pl-12 pr-4 py-3 rounded-full bg-black/20 border-2 border-white/10 focus:border-purple-500 focus:ring-purple-500 text-foreground placeholder:text-foreground/50 transition-all duration-300"
+          className="w-full pl-12 pr-4 py-3 rounded-full bg-black/20 border-2 border-white/10 focus:border-sky-400 focus:ring-sky-500 text-foreground placeholder:text-foreground/50 transition-all duration-300"
         />
       </div>
       

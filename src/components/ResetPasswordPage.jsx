@@ -150,7 +150,7 @@ const ResetPasswordPage = () => {
                     </motion.div>
                     <h2 className="text-3xl font-bold text-white mb-2">Success!</h2>
                     <p className="text-neutral-300">{successMessage}</p>
-                    <Button asChild variant="link" className="mt-4 text-purple-400">
+                    <Button asChild variant="link" className="mt-4 text-sky-300">
                         <Link to="/login">Back to Sign In</Link>
                     </Button>
                 </motion.div>
@@ -248,12 +248,12 @@ const ResetPasswordPage = () => {
                     />
                 </Link>
             </div>
-            <div className="bg-black/40 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 shadow-2xl shadow-purple-900/20">
+            <div className="liquid-glass-elevated p-8 rounded-3xl border border-cyan-400/20 shadow-2xl shadow-cyan-950/30">
                 <AnimatePresence mode="wait">
                     {renderContent()}
                 </AnimatePresence>
                 <div className="mt-8 text-center">
-                    <Link to="/login" className="text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors">
+                    <Link to="/login" className="text-sm font-semibold text-sky-300 hover:text-sky-200 transition-colors">
                         Back to Sign In
                     </Link>
                 </div>

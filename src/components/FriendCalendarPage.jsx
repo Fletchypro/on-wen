@@ -248,7 +248,7 @@ import React, { useState, useEffect, useMemo } from 'react';
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <Button onClick={() => setShowConfirmationDialog(false)} variant="outline" className="w-full sm:w-auto bg-transparent hover:bg-white/10 border-white/20 text-white font-semibold">Cancel</Button>
-                                        <Button onClick={confirmSubscription} className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold hover:from-purple-700 hover:to-purple-900 transition-all">
+                                        <Button onClick={confirmSubscription} className="w-full sm:w-auto bg-gradient-to-r from-slate-600 to-slate-800 text-white font-semibold hover:from-slate-700 hover:to-slate-900 transition-all">
                                             {isSubscribedToSelectedTag ? "Unsubscribe" : "Subscribe"}
                                         </Button>
                                     </AlertDialogFooter>

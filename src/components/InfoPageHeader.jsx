@@ -13,7 +13,7 @@ const InfoPageHeader = () => {
     <header className="sticky top-0 left-0 right-0 z-20 h-16 sm:h-20 flex justify-between items-center px-4 sm:px-6 bg-black/20 backdrop-blur-lg border-b border-white/10 ios-safe-top">
       <Link to="/">
         <div className="relative">
-          <div className="absolute -inset-2 bg-gradient-to-br from-purple-600 to-pink-500 opacity-20 blur-xl rounded-full" />
+          <div className="absolute -inset-2 bg-gradient-to-br from-sky-500 to-cyan-500 opacity-20 blur-xl rounded-full" />
           <img src={LOGO_URL} alt="Wen Logo" className="relative w-24 sm:w-28 h-auto filter drop-shadow-lg" />
         </div>
       </Link>
@@ -24,7 +24,7 @@ const InfoPageHeader = () => {
         <Button
           asChild
           size="sm"
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold group hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-transform"
+          className="bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold group hover:from-sky-600 hover:to-cyan-700 transform hover:scale-105 transition-transform"
         >
           <Link to="/signup">Sign Up</Link>
         </Button>

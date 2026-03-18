@@ -93,7 +93,7 @@ import React, { useState, useEffect, useCallback } from 'react';
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="e.g., 'birthday party' or 'New York'"
-                    className="pl-10 bg-slate-800 border-slate-600 focus:ring-purple-500"
+                    className="pl-10 bg-slate-800 border-slate-600 focus:ring-sky-500"
                   />
                 </div>
                 <Button type="button" onClick={handleSearch} disabled={isLoading || !query}>
@@ -111,7 +111,7 @@ import React, { useState, useEffect, useCallback } from 'react';
                         exit={{ opacity: 0 }}
                         className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/50"
                       >
-                        <Loader2 className="h-8 w-8 animate-spin text-purple-400" />
+                        <Loader2 className="h-8 w-8 animate-spin text-sky-300" />
                         <p className="mt-2 text-sm text-gray-400">Searching for image...</p>
                       </motion.div>
                     )}
@@ -150,7 +150,7 @@ import React, { useState, useEffect, useCallback } from 'react';
                   </div>
                 )}
               </div>
-              <Button type="button" onClick={handleUseImage} disabled={!imageData.url || isLoading} className="w-full bg-purple-600 hover:bg-purple-700">
+              <Button type="button" onClick={handleUseImage} disabled={!imageData.url || isLoading} className="w-full bg-sky-600 hover:bg-sky-500">
                 Use This Image
               </Button>
             </div>

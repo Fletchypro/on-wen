@@ -15,7 +15,7 @@ const Slider = React.forwardRef(({ className, ...props }, ref) => (
         <div className="sweep" />
 
         <SliderPrimitive.Track className="absolute inset-0">
-          <SliderPrimitive.Range className="absolute h-full bg-gradient-to-r from-purple-400/70 via-fuchsia-400/80 to-pink-400/80 shadow-[0_0_18px_rgba(216,180,254,0.55)]" />
+          <SliderPrimitive.Range className="absolute h-full bg-gradient-to-r from-sky-400/70 via-cyan-400/75 to-teal-400/70 shadow-[0_0_18px_rgba(56,189,248,0.35)]" />
         </SliderPrimitive.Track>
 
         <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/15" />
@@ -30,7 +30,7 @@ const Slider = React.forwardRef(({ className, ...props }, ref) => (
         "shadow-[0_8px_22px_rgba(0,0,0,0.45)] border border-white/20",
         "bg-[radial-gradient(120%_120%_at_20%_-10%,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0.22)_30%,rgba(0,0,0,0.25)_100%)]",
         "backdrop-blur-md transition-transform will-change-transform",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/70"
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50"
       )}
     />
   </SliderPrimitive.Root>

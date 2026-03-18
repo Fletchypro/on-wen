@@ -17,8 +17,8 @@ import React from 'react';
             transition={{ duration: 0.5 }}
           >
             <div className="text-center mb-12 sm:mb-16">
-              {Icon && <Icon className="w-16 h-16 mx-auto mb-6 text-purple-400" />}
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+              {Icon && <Icon className="w-16 h-16 mx-auto mb-6 text-sky-300" />}
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
                 {pageTitle}
               </h1>
               {pageDescription && (

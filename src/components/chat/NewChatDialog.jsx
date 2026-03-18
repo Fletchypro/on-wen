@@ -28,7 +28,7 @@ export const NewChatDialog = ({ onConversationCreated }) => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-purple-400 hover:text-purple-300 hover:bg-purple-400/10">
+                <Button variant="ghost" size="icon" className="text-sky-300 hover:text-sky-200 hover:bg-sky-400/15">
                     <MessageSquarePlus className="h-6 w-6" />
                 </Button>
             </DialogTrigger>

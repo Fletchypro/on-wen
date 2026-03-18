@@ -14,16 +14,15 @@ import { startConversation as startNewConversation } from '@/hooks/useFriendRequ
 import { Users, UserPlus, Clock, Search, Mail, Inbox } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import EventJoinRequests from '@/components/friends/EventJoinRequests';
-import { useTheme } from '@/contexts/ThemeContext';
 import { useDebounce } from '@/hooks/useDebounce';
+import { appPageTitleClass } from '@/lib/utils';
 
 const FriendsPage = ({ onRequestsHandled, onSelectConversation, onViewFriendCalendar, onViewUserProfile }) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme } = useTheme();
-  
+
   const queryParams = new URLSearchParams(location.search);
   const initialTab = queryParams.get('tab') || 'invites';
 
@@ -315,7 +314,7 @@ const FriendsPage = ({ onRequestsHandled, onSelectConversation, onViewFriendCale
     >
       <motion.div className="flex-shrink-0" variants={itemVariants}>
         <div className="mb-6 mt-10">
-          <h1 className={`text-4xl md:text-6xl font-bold tracking-tighter ${theme.headerColor}`}>
+          <h1 className={appPageTitleClass}>
             Inbox & Friends
           </h1>
         </div>

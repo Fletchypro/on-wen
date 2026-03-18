@@ -50,7 +50,7 @@ const ChatPopup = ({ conversation, onClose, onViewFriendCalendar }) => {
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
             >
               {conversation && (
-                <div className="bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex-grow flex flex-col overflow-hidden h-full">
+                <div className="glass-strong rounded-2xl border border-white/15 flex-grow flex flex-col overflow-hidden h-full">
                   <ChatWindow
                     conversation={conversation}
                     onBack={handleClose}

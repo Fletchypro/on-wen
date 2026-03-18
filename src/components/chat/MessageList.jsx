@@ -55,7 +55,7 @@ const MessageList = ({ messages, currentUserId, scrollToBottomRef, eventId, boot
                                 <AvatarFallback>{getInitials(msg.sender)}</AvatarFallback>
                             </Avatar>
                         )}
-                        <div className={`max-w-xs md:max-w-md p-1 rounded-2xl shadow-md ${msg.sender_id === currentUserId ? 'bg-purple-600 text-white rounded-br-none' : 'bg-foreground/10 text-foreground rounded-bl-none'}`}>
+                        <div className={`max-w-xs md:max-w-md p-1 rounded-2xl shadow-md ${msg.sender_id === currentUserId ? 'bg-sky-600 text-white rounded-br-none' : 'bg-foreground/10 text-foreground rounded-bl-none'}`}>
                             <div className="p-2">
                             {msg.sender_id !== currentUserId && (
                                 <p className={`text-xs font-bold ${theme.headerColor} mb-1 px-1`}>{getDisplayName(msg.sender)}</p>

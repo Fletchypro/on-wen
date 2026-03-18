@@ -6,7 +6,7 @@ import React from 'react';
     const DeleteAccountPage = () => {
       const Section = ({ title, children }) => (
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-purple-300 flex items-center">
+          <h2 className="text-2xl font-bold mb-4 text-sky-200 flex items-center">
             {title}
           </h2>
           <div className="space-y-4">{children}</div>

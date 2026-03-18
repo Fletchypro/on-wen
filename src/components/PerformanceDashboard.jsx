@@ -56,7 +56,7 @@ const PerformanceDashboard = () => {
           <div className="p-4">
             <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
               <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                <Activity size={16} className="text-purple-400" />
+                <Activity size={16} className="text-sky-300" />
                 <span>Web Vitals</span>
               </div>
               <div className="flex items-center gap-1">
@@ -84,7 +84,7 @@ const PerformanceDashboard = () => {
             </div>
           </div>
         ) : (
-            <div onClick={() => setIsOpen(true)} className="w-full h-full flex items-center justify-center text-purple-400">
+            <div onClick={() => setIsOpen(true)} className="w-full h-full flex items-center justify-center text-sky-300">
                 <Activity size={20} />
             </div>
         )}

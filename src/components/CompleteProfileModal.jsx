@@ -189,7 +189,7 @@ import React, { useState, useEffect, useRef } from 'react';
                   <Input value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value.replace(/\s/g, '') })} placeholder="johndoe" required className="bg-white/10 border-white/20 text-white" />
                 </div>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
+                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold">
                   {loading ? <Loader2 className="animate-spin" /> : 'Continue'} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>
@@ -206,7 +206,7 @@ import React, { useState, useEffect, useRef } from 'react';
                   <PhoneInput value={formData.phone} onChange={(p) => setFormData({ ...formData, phone: p })} required className="flex h-10 w-full rounded-md border border-input bg-white/10 px-3 py-2 text-sm text-white" />
                 </div>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
+                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold">
                   {loading ? <Loader2 className="animate-spin" /> : 'Send Code'} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>
@@ -224,7 +224,7 @@ import React, { useState, useEffect, useRef } from 'react';
                   ))}
                 </div>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
+                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold">
                   {loading ? <Loader2 className="animate-spin" /> : 'Verify & Continue'} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>
@@ -260,11 +260,11 @@ import React, { useState, useEffect, useRef } from 'react';
                         birthday: v ? new Date(v + 'T12:00:00') : null,
                       }));
                     }}
-                    className="flex h-12 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 [color-scheme:dark]"
+                    className="flex h-12 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 [color-scheme:dark]"
                   />
                 </div>
                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                <Button type="submit" disabled={loading || !formData.birthday} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
+                <Button type="submit" disabled={loading || !formData.birthday} className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold">
                   {loading ? <Loader2 className="animate-spin" /> : 'Continue'} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>

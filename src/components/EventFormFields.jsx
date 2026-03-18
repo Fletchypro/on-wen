@@ -101,7 +101,7 @@ const EventFormFields = ({
           value={formData.address || ''}
           onChange={handleInputChange}
           placeholder="e.g., 'Apt 4B, New York, NY'"
-          className="w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
           disabled={isReadOnly}
         />
       </FormField>

@@ -139,7 +139,7 @@ import React, { useState } from 'react';
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="w-20 h-20 mx-auto bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center"
+                className="w-20 h-20 mx-auto bg-gradient-to-r from-sky-500 to-cyan-600 rounded-full flex items-center justify-center"
               >
                 <HelpCircle size={40} className="text-white" />
               </motion.div>
@@ -154,7 +154,7 @@ import React, { useState } from 'react';
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4"
+              className="glass-light border border-white/10 rounded-2xl p-4"
             >
               <h3 className="text-white font-semibold mb-3 flex items-center space-x-2">
                 <Star size={16} />
@@ -188,7 +188,7 @@ import React, { useState } from 'react';
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    className="bg-white/10 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20"
+                    className="glass-light rounded-2xl overflow-hidden border border-white/10"
                   >
                     <motion.button
                       onClick={() => toggleSection(section.id)}
@@ -197,8 +197,8 @@ import React, { useState } from 'react';
                       whileTap={{ scale: 0.99 }}
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="p-2 rounded-lg bg-purple-500/20">
-                          <SectionIcon size={20} className="text-purple-300" />
+                        <div className="p-2 rounded-lg bg-sky-500/15">
+                          <SectionIcon size={20} className="text-sky-200" />
                         </div>
                         <h3 className="text-white font-semibold">{section.title}</h3>
                       </div>
@@ -246,14 +246,14 @@ import React, { useState } from 'react';
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 text-center space-y-4"
+              className="glass-light border border-white/10 rounded-2xl p-6 text-center space-y-4"
             >
               <h3 className="text-white font-semibold text-lg">Still need help?</h3>
               <p className="text-white/70 text-sm">
                 Can't find what you're looking for? We're here to help you make the most of VisualDays.
               </p>
               <motion.button
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold shadow-lg"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {

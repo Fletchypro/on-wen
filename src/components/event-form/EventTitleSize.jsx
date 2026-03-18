@@ -27,7 +27,7 @@ const EventTitleSize = ({ formData, handleFieldChange, isReadOnly }) => {
             name="title_size"
             onClick={() => handleFieldChange('title_size', level.value)}
             className={`p-3 rounded-xl text-white font-medium transition-all flex flex-col items-center space-y-1 disabled:opacity-70 disabled:cursor-not-allowed ${
-              formData.title_size === level.value ? 'bg-gradient-to-r from-purple-500 to-pink-600 shadow-lg' : 'bg-white/10 hover:bg-white/20'
+              formData.title_size === level.value ? 'bg-gradient-to-r from-sky-500 to-cyan-600 shadow-lg' : 'bg-white/10 hover:bg-white/20'
             }`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

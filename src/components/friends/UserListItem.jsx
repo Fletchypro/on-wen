@@ -47,9 +47,9 @@ import React, { useState } from 'react';
       return (
         <>
         <div
-          className="p-3 bg-black/20 backdrop-blur-lg rounded-2xl flex items-center gap-4 border border-white/10 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:border-purple-500/50"
+          className="p-3 bg-black/20 backdrop-blur-lg rounded-2xl flex items-center gap-4 border border-white/10 shadow-lg hover:shadow-sky-500/20 transition-all duration-300 hover:border-sky-400/40"
         >
-          <Avatar className="w-12 h-12 border-2 border-purple-400/50 flex-shrink-0">
+          <Avatar className="w-12 h-12 border-2 border-sky-400/45 flex-shrink-0">
             <AvatarImage src={user.avatar_url} alt={getDisplayName(user)} />
             <AvatarFallback className="bg-secondary text-foreground/70 text-lg">{getInitials(user)}</AvatarFallback>
           </Avatar>

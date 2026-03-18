@@ -111,9 +111,9 @@ const ProfileSettings = () => {
           </Button>
         )}
       </div>
-      <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg space-y-6">
+      <div className="p-4 rounded-2xl glass-light border border-white/10 shadow-lg space-y-6">
         <div className="flex items-center gap-4">
-          <Avatar className="h-20 w-20 border-2 border-purple-500/50 overflow-hidden">
+          <Avatar className="h-20 w-20 border-2 border-sky-400/40 overflow-hidden">
             {profile?.avatar_url ? (
                 <ImageOptimizer
                     src={profile.avatar_url}
@@ -169,7 +169,7 @@ const ProfileSettings = () => {
                     value={formData.first_name}
                     onChange={handleInputChange}
                     placeholder="Your first name"
-                    className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                    className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
@@ -181,7 +181,7 @@ const ProfileSettings = () => {
                     value={formData.last_name}
                     onChange={handleInputChange}
                     placeholder="Your last name"
-                    className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                    className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                   />
                 </div>
               </div>
@@ -194,7 +194,7 @@ const ProfileSettings = () => {
                   value={formData.username}
                   onChange={handleInputChange}
                   placeholder="Choose a username"
-                  className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                  className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                 />
               </div>
               <div className="space-y-2">
@@ -218,7 +218,7 @@ const ProfileSettings = () => {
                       birthday: v ? new Date(v + 'T12:00:00') : null,
                     }));
                   }}
-                  className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all [color-scheme:dark]"
+                  className="w-full p-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all [color-scheme:dark]"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-2">
@@ -234,7 +234,7 @@ const ProfileSettings = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center justify-center space-x-2 bg-purple-600/80 hover:bg-purple-600 text-white font-medium disabled:opacity-50"
+                  className="flex items-center justify-center space-x-2 bg-sky-600/90 hover:bg-sky-500 text-white font-medium disabled:opacity-50"
                 >
                   <Save size={18} />
                   <span>{loading ? 'Saving...' : 'Save'}</span>

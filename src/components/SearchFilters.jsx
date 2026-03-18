@@ -109,7 +109,7 @@ import React, { useState, useMemo } from 'react';
 
       const getEventTypeColor = (type) => {
         switch (type) {
-          case 'work': return 'from-purple-500 to-pink-600';
+          case 'work': return 'from-sky-500 to-cyan-600';
           case 'birthday': return 'from-yellow-500 to-orange-600';
           case 'social': return 'from-green-500 to-teal-600';
           default: return 'from-blue-500 to-indigo-600';
@@ -134,7 +134,7 @@ import React, { useState, useMemo } from 'react';
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search events, locations, notes..."
-                className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
               />
             </div>
 
@@ -191,7 +191,7 @@ import React, { useState, useMemo } from 'react';
                         onClick={() => setFilters(prev => ({ ...prev, priority: option.value }))}
                         className={`p-2 rounded-lg text-sm font-medium transition-all ${
                           filters.priority === option.value
-                            ? 'bg-purple-500 text-white'
+                            ? 'bg-sky-600 text-white'
                             : 'bg-white/10 text-white/70 hover:bg-white/20'
                         }`}
                         whileHover={{ scale: 1.02 }}
@@ -219,7 +219,7 @@ import React, { useState, useMemo } from 'react';
                         onClick={() => setFilters(prev => ({ ...prev, eventType: option.value }))}
                         className={`p-2 rounded-lg text-sm font-medium transition-all ${
                           filters.eventType === option.value
-                            ? 'bg-purple-500 text-white'
+                            ? 'bg-sky-600 text-white'
                             : 'bg-white/10 text-white/70 hover:bg-white/20'
                         }`}
                         whileHover={{ scale: 1.02 }}
@@ -250,7 +250,7 @@ import React, { useState, useMemo } from 'react';
                         onClick={() => setFilters(prev => ({ ...prev, dateRange: option.value }))}
                         className={`p-2 rounded-lg text-sm font-medium transition-all ${
                           filters.dateRange === option.value
-                            ? 'bg-purple-500 text-white'
+                            ? 'bg-sky-600 text-white'
                             : 'bg-white/10 text-white/70 hover:bg-white/20'
                         }`}
                         whileHover={{ scale: 1.02 }}
@@ -273,7 +273,7 @@ import React, { useState, useMemo } from 'react';
                     value={filters.location}
                     onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
                     placeholder="Filter by location..."
-                    className="w-full p-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                    className="w-full p-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                   />
                 </div>
               </motion.div>

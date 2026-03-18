@@ -54,7 +54,7 @@ import React, { useState } from 'react';
             </p>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold mb-4 text-purple-300">
+              <h2 className="text-2xl font-bold mb-4 text-sky-200">
                 🛠️ Tell Us What You Think
               </h2>
               <p>
@@ -69,7 +69,7 @@ import React, { useState } from 'react';
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4 text-purple-300">
+              <h2 className="text-2xl font-bold mb-4 text-sky-200">
                 📬 Feedback Form
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -108,7 +108,7 @@ import React, { useState } from 'react';
                     className="bg-gray-900/50 border-gray-700"
                   />
                 </div>
-                <Button type="submit" disabled={isSubmitting} className="w-full bg-purple-600 hover:bg-purple-700">
+                <Button type="submit" disabled={isSubmitting} className="w-full bg-sky-600 hover:bg-sky-500">
                   {isSubmitting ? 'Sending...' : 'Send Feedback'}
                 </Button>
               </form>
@@ -118,7 +118,7 @@ import React, { useState } from 'react';
             </section>
 
             <section className="mt-12">
-              <h2 className="text-2xl font-bold mb-4 text-purple-300">
+              <h2 className="text-2xl font-bold mb-4 text-sky-200">
                 ✅ What Happens Next?
               </h2>
               <p>

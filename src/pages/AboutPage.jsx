@@ -12,7 +12,7 @@ import React from 'react';
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5, delay }}
       >
-        <div className="text-purple-400 mt-1 flex-shrink-0">{icon}</div>
+        <div className="text-sky-300 mt-1 flex-shrink-0">{icon}</div>
         <div>
           <h3 className="font-bold text-lg text-white">{title}</h3>
           <p className="text-white/70 mt-1">{text}</p>
@@ -98,9 +98,9 @@ import React from 'react';
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
               custom={0.5}
-              className="p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl backdrop-blur-sm border border-white/10 text-center"
+              className="p-8 bg-gradient-to-r from-sky-500/10 to-cyan-500/8 rounded-2xl backdrop-blur-sm border border-white/10 text-center"
             >
-              <Target className="w-12 h-12 mx-auto mb-4 text-purple-300" />
+              <Target className="w-12 h-12 mx-auto mb-4 text-sky-200" />
               <h2 className="text-2xl sm:text-3xl font-bold mb-4">Our Mission</h2>
               <p className="text-lg text-gray-200 mx-auto max-w-4xl">
                 To make planning feel effortless, personal, and visually inspiring. We believe that organizing your life shouldn’t feel like work—it should feel like you. Wen transforms traditional scheduling into a visual experience, helping you stay on track, reduce stress, and enjoy every step of the journey.

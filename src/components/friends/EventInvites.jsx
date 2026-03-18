@@ -21,15 +21,15 @@ const itemVariants = {
 };
 
 const EmptyState = () => (
-  <div className="text-center p-12 flex flex-col items-center justify-center h-full bg-black/20 rounded-2xl border border-white/10 shadow-lg backdrop-blur-sm">
+  <div className="text-center p-12 flex flex-col items-center justify-center h-full glass-light rounded-2xl border border-white/10 shadow-lg">
     <motion.div
       initial={{ scale: 0.5, opacity: 0, y: -20 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
     >
       <div className="relative">
-        <div className="absolute -inset-2 bg-purple-500 rounded-full blur-xl opacity-50"></div>
-        <Mailbox size={80} className="text-purple-300 mb-6 relative" />
+        <div className="absolute -inset-2 bg-sky-400 rounded-full blur-xl opacity-50"></div>
+        <Mailbox size={80} className="text-sky-200 mb-6 relative" />
       </div>
     </motion.div>
     <motion.h3 
@@ -73,14 +73,14 @@ const EventInvites = ({ invites, handleInvite, loading }) => {
         <motion.div
           key={invite.id}
           variants={itemVariants}
-          className="bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-white/10 overflow-hidden shadow-lg"
+          className="glass-light p-4 rounded-xl border border-white/10 overflow-hidden shadow-lg"
         >
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full sm:w-32 h-32 sm:h-auto flex-shrink-0 rounded-md overflow-hidden">
               {invite.event.image ? (
                 <img src={invite.event.image} alt={invite.event.title} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-sky-500 to-cyan-600 flex items-center justify-center">
                   <Calendar size={40} className="text-white/50" />
                 </div>
               )}

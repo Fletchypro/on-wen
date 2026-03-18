@@ -6,18 +6,16 @@ import React, { useState, useEffect } from 'react';
     import { useUserProfile } from '@/hooks/useUserProfile';
     import { Button } from '@/components/ui/button';
     import { ArrowLeft, Save } from 'lucide-react';
-    import { useTheme } from '@/contexts/ThemeContext';
     import { useFriends } from '@/hooks/useFriends';
     import { useEventTags } from '@/hooks/useEventTags';
     import useEventForm from '@/hooks/useEventForm';
+    import { appPageTitleClass } from '@/lib/utils';
 
     const EditEvent = ({ updateEvent }) => {
         const location = useLocation();
         const navigate = useNavigate();
         const { user } = useAuth();
         const { profile } = useUserProfile(user);
-        const { theme } = useTheme();
-
         const [initialEventData, setInitialEventData] = useState(null);
         const [selectedTag, setSelectedTag] = useState(null);
         const [imagePreview, setImagePreview] = useState(null);
@@ -117,7 +115,7 @@ import React, { useState, useEffect } from 'react';
                     <Button onClick={() => navigate('/dashboard')} variant="ghost" className="mr-2 p-2 h-auto">
                         <ArrowLeft />
                     </Button>
-                    <h1 className={`text-3xl font-bold tracking-tight ${theme.headerColor}`}>Edit Event</h1>
+                    <h1 className={appPageTitleClass}>Edit Event</h1>
                 </div>
 
                 <div className="flex-1 overflow-y-auto overscroll-contain pr-2 -mr-2 pb-[calc(env(safe-area-inset-bottom)+108px)]">
@@ -146,7 +144,7 @@ import React, { useState, useEffect } from 'react';
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="w-full p-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600
+                                className="w-full p-4 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-600
                                          text-white font-semibold flex items-center justify-center space-x-2
                                          shadow-lg hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}

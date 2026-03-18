@@ -93,7 +93,7 @@ const AvatarPopoverContent = ({ initialAttendee, allAttendees, onViewFriendCalen
     };
 
     return (
-        <PopoverContent className="w-64 p-0 bg-white/10 dark:bg-black/20 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-lg rounded-2xl overflow-hidden">
+        <PopoverContent className="w-64 p-0 glass-strong border border-white/15 shadow-lg rounded-2xl overflow-hidden">
             <div className="relative h-80 flex items-center justify-center cursor-grab active:cursor-grabbing">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                     <motion.div

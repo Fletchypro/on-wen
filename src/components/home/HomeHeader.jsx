@@ -5,8 +5,7 @@ import { Filter, Search, Mail, X, UserPlus, Eye, Settings } from 'lucide-react';
 import { useUserSearch } from '@/hooks/useUserSearch';
 import { useToast } from '@/components/ui/use-toast';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useTheme } from '@/contexts/ThemeContext';
-import { getDisplayName, getInitials } from '@/lib/utils';
+import { getDisplayName, getInitials, appSectionTitleClass } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
@@ -37,7 +36,7 @@ const SearchResultItem = ({ user, onSelect, onAddFriend, onNavigateToProfile }) 
           <Button
             variant="ghost"
             size="sm"
-            className="text-purple-400 hover:text-purple-300"
+            className="text-sky-300 hover:text-sky-200"
             onClick={() => onSelect(user)}
           >
             <Eye size={16} className="mr-2" /> View
@@ -102,7 +101,6 @@ const HomeHeader = ({
   eventInvitesCount,
   profile,
 }) => {
-  const { theme } = useTheme();
   const navigate = useNavigate();
   const searchRef = useRef(null);
 
@@ -162,7 +160,7 @@ const HomeHeader = ({
         <div className="flex items-center justify-between mb-4">
           <div>
             <motion.h1
-              className={`text-2xl md:text-3xl font-bold ${theme.headerColor}`}
+              className={appSectionTitleClass}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
@@ -185,7 +183,7 @@ const HomeHeader = ({
           >
             <Avatar 
                 onClick={() => navigate('/settings')}
-                className="cursor-pointer h-12 w-12 md:h-16 md:w-16 border-2 border-background/50 ring-2 ring-purple-500 hover:ring-4 transition-all duration-300"
+                className="cursor-pointer h-12 w-12 md:h-16 md:w-16 border-2 border-background/50 ring-2 ring-sky-400/50 hover:ring-sky-300/60 transition-all duration-300"
             >
               <AvatarImage src={profile?.avatar_url} alt={getDisplayName(profile)} />
               <AvatarFallback>{getInitials(profile)}</AvatarFallback>
@@ -208,7 +206,7 @@ const HomeHeader = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsSearchActive(true)}
-              className="w-full bg-white/10 backdrop-blur-xl border border-white/50 text-white placeholder-gray-300 rounded-2xl pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 appearance-none [&::-webkit-search-cancel-button]:appearance-none"
+              className="w-full bg-white/10 backdrop-blur-xl border border-white/50 text-white placeholder-gray-300 rounded-2xl pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400/50 appearance-none [&::-webkit-search-cancel-button]:appearance-none"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
               {searchQuery && (

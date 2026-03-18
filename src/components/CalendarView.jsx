@@ -247,7 +247,7 @@ import React, { useState } from 'react';
                   onClick={() => setViewMode(mode)}
                   className={`p-2 rounded-md transition-colors ${
                     viewMode === mode 
-                      ? 'bg-white text-purple-600' 
+                      ? 'bg-white text-sky-700' 
                       : 'text-white hover:bg-white/10'
                   }`}
                   whileHover={{ scale: 1.05 }}

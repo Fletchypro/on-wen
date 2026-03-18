@@ -9,7 +9,7 @@ const eventTypes = [{
 }, {
   value: 'work',
   label: 'Work',
-  color: 'from-purple-500 to-pink-600'
+  color: 'from-sky-500 to-cyan-600'
 }, {
   value: 'birthday',
   label: 'Birthday',

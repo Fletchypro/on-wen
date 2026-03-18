@@ -8,7 +8,7 @@ const DatePickerPopover = () => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button className="px-3 py-2 bg-purple-600 text-white rounded">
+        <button className="px-3 py-2 bg-sky-600 text-white rounded">
           {date || "Pick Date"}
         </button>
       </PopoverTrigger>

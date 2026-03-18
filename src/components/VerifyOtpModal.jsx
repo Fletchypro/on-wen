@@ -108,7 +108,7 @@ export const VerifyOtpModal = ({ isOpen, setIsOpen, email, phone, type, onSucces
                   key={index}
                   type="text"
                   maxLength="1"
-                  className="w-12 h-14 text-center text-2xl font-bold text-white bg-white/10 rounded-lg border-2 border-white/20 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 transition-all"
+                  className="w-12 h-14 text-center text-2xl font-bold text-white bg-white/10 rounded-lg border-2 border-white/20 focus:border-sky-400 focus:ring-2 focus:ring-sky-500 transition-all"
                   value={data}
                   onChange={(e) => handleChange(e.target, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
@@ -118,7 +118,7 @@ export const VerifyOtpModal = ({ isOpen, setIsOpen, email, phone, type, onSucces
               );
             })}
           </div>
-          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold">
+          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold">
             {loading ? <Loader2 className="animate-spin" /> : 'Verify & Continue'}
           </Button>
         </form>

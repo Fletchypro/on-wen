@@ -6,7 +6,7 @@ import React, { useState, useEffect, useMemo } from 'react';
     import EventCard from '@/components/home/EventCard';
     import { BellRing, Frown, Tag, X } from 'lucide-react';
     import { useToast } from '@/components/ui/use-toast';
-    import { getTagColor } from '@/lib/utils';
+    import { getTagColor, appSectionTitleClass } from '@/lib/utils';
     import { Button } from '@/components/ui/button';
     import {
       AlertDialog,
@@ -234,7 +234,7 @@ import React, { useState, useEffect, useMemo } from 'react';
                           <div className="sweep"></div>
                           <div className="flex items-center gap-3">
                               <BellRing className={`h-6 w-6 ${theme.headerColor}`} />
-                              <h1 className={`text-2xl font-bold tracking-tight ${theme.headerColor}`}>
+                              <h1 className={appSectionTitleClass}>
                                   Tracked Events
                               </h1>
                           </div>
@@ -243,14 +243,14 @@ import React, { useState, useEffect, useMemo } from 'react';
                               <motion.div 
                                 className="flex flex-wrap items-center gap-2"
                               >
-                               <div className="glass-strong p-1 rounded-lg flex gap-1 flex-wrap border border-purple-500/20 shadow-xl shadow-purple-500/10">
+                               <div className="glass-strong p-1 rounded-lg flex gap-1 flex-wrap border border-sky-400/20 shadow-xl shadow-sky-500/10">
   {/* All */}
   <Button
     size="sm"
     variant={!selectedTagId ? 'default' : 'ghost'}
     onClick={() => setSelectedTagId(null)}
     className={`rounded-full px-4 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-0 transition-all ${
-      !selectedTagId ? 'bg-purple-600 hover:bg-purple-700' : 'hover:bg-white/10 text-white'
+      !selectedTagId ? 'bg-sky-600 hover:bg-sky-500' : 'hover:bg-white/10 text-white'
     }`}
   >
     All

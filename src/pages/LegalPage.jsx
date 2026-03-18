@@ -7,7 +7,7 @@ import React from 'react';
     const LegalPage = () => {
       const Section = ({ title, children }) => (
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-purple-300">{title}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-sky-200">{title}</h2>
           <div className="space-y-4">{children}</div>
         </section>
       );
@@ -16,7 +16,7 @@ import React from 'react';
         <div className="flex flex-col sm:flex-row sm:items-center">
           <p className="w-full sm:w-1/4 font-semibold">{label}:</p>
           {isLink ? (
-            <a href={href} className="w-full sm:w-3/4 text-purple-400 hover:underline">{value}</a>
+            <a href={href} className="w-full sm:w-3/4 text-sky-300 hover:underline">{value}</a>
           ) : (
             <p className="w-full sm:w-3/4">{value}</p>
           )}

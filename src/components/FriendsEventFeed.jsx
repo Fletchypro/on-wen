@@ -8,11 +8,10 @@ import ExternalEventDetailDialog from '@/components/ExternalEventDetailDialog';
 import { Rss, Frown, Users, MapPin, Tv2, X } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { cn, appSectionTitleClass } from '@/lib/utils';
 import { usCities } from '@/data/index.js';
 import { Badge } from '@/components/ui/badge';
 import CreatableSelect from '@/components/ui/creatable-select';
-import { useTheme } from '@/contexts/ThemeContext';
 import { useLocationCity } from '@/hooks/useLocationCity';
 import { useExternalEvents } from '@/hooks/useExternalEvents';
 
@@ -45,8 +44,6 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { theme } = useTheme();
-
   useEffect(() => {
     if (onTabChange) {
       onTabChange(currentActiveTab);
@@ -337,7 +334,7 @@ const FriendsEventFeed = ({ onViewUserProfile, fetchCalendarEvents, activeTab, o
     <div className="flex-1 overflow-hidden">
       <div className="h-full overflow-y-auto pb-24 md:pb-6 [&::-webkit-scrollbar]:hidden">
         <div className="relative p-4 glass z-10 mb-4"> {/* Added mb-4 for spacing */}
-          <h1 className={cn("text-2xl font-bold tracking-tight mb-4", theme.headerColor)}>Discover Events</h1>
+          <h1 className={cn(appSectionTitleClass, 'mb-4')}>Discover Events</h1>
           <div className="relative">
             <div className="glass-strong w-full max-w-[700px] p-1 rounded-full overflow-hidden flex gap-1 mb-4 mx-auto">
               {[

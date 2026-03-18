@@ -54,7 +54,7 @@ const APP_ICON_URL = 'https://horizons-cdn.hostinger.com/acb8a4e4-bfc7-419c-8d89
 
 const LoadingFallback = () => (
     <div className="h-full w-full flex items-center justify-center min-h-[50vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-white/35" />
     </div>
 );
 
@@ -64,8 +64,8 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center bg-gray-900">
-        <Loader2 className="h-10 w-10 animate-spin text-purple-400" aria-hidden />
+      <div className="h-screen w-screen flex items-center justify-center bg-zinc-950">
+        <Loader2 className="h-10 w-10 animate-spin text-white/35" aria-hidden />
       </div>
     );
   }
@@ -91,8 +91,8 @@ const PublicRoute = ({ children }) => {
     
     if (loading) {
         return (
-            <div className="h-screen w-screen flex items-center justify-center bg-gray-900">
-                <Loader2 className="h-10 w-10 animate-spin text-purple-400" aria-hidden />
+            <div className="h-screen w-screen flex items-center justify-center bg-zinc-950">
+                <Loader2 className="h-10 w-10 animate-spin text-white/35" aria-hidden />
             </div>
         );
     }
@@ -213,7 +213,7 @@ const AppContent = () => {
   if (authLoading || (user && (!profile || eventsLoading))) {
     return (
       <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${theme.gradient}`}>
-        <Loader2 className="h-10 w-10 animate-spin text-purple-400" aria-hidden />
+        <Loader2 className="h-10 w-10 animate-spin text-white/40" aria-hidden />
       </div>
     );
   }
@@ -260,7 +260,7 @@ const AppContent = () => {
         <AlertDialogContent className="p-0 border-none bg-transparent shadow-none max-w-lg">
             <div className="relative rounded-2xl overflow-hidden text-white glass-strong">
                 <motion.div 
-                    className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_0,_#7c3aed_0%,_transparent_40%)]"
+                    className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_50%_0,_rgba(56,189,248,0.35)_0%,_transparent_45%)]"
                     animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
@@ -288,10 +288,11 @@ const AppContent = () => {
 
 const AuthLayout = ({ children }) => {
     return (
-        <div className="fixed inset-0 w-full h-full overflow-y-auto bg-background">
-            <img alt="Abstract background with swirling colors" className="fixed inset-0 h-full w-full object-cover -z-10" src="https://images.unsplash.com/photo-1685825552564-a419152cbf46" loading="lazy" />
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-xl -z-10"></div>
-            <div className="min-h-full flex flex-col justify-center items-center p-4 py-12 sm:py-16 md:p-8 md:py-24 w-full">
+        <div className="fixed inset-0 w-full h-full overflow-y-auto bg-zinc-950">
+            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-zinc-900 via-slate-900 to-zinc-950" aria-hidden />
+            <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(255,255,255,0.06),transparent_50%)]" aria-hidden />
+            <div className="fixed inset-0 bg-black/45 backdrop-blur-2xl saturate-150 -z-10" />
+            <div className="min-h-full flex flex-col justify-center items-center p-4 py-12 sm:py-16 md:p-8 md:py-24 w-full relative z-10">
                 <div className="w-full max-w-md px-1 sm:px-0">
                     {children}
                 </div>
@@ -316,6 +317,7 @@ function App() {
   return (
    <>
     <div className={`h-[100dvh] w-full relative flex flex-col overflow-hidden bg-gradient-to-br transition-all duration-500 text-foreground ${theme.gradient}`}>
+      <div className="app-liquid-atmosphere" aria-hidden />
       {/* Task 6: Defer Helmet until needed, or use lighter wrapper if possible. For now, key meta tags are in index.html */}
       <Helmet defer={false}>
         <title>Wen</title>
@@ -324,7 +326,8 @@ function App() {
         <link rel="apple-touch-icon" href={APP_ICON_URL} />
         <meta property="og:image" content={APP_ICON_URL} />
       </Helmet>
-      
+
+      <div className="relative z-10 flex-1 flex flex-col min-h-0 min-w-0 overflow-y-auto overflow-x-hidden">
       <AnimatePresence mode="wait">
         <Suspense fallback={<LoadingFallback />}>
             <Routes location={location} key={location.pathname}>
@@ -365,7 +368,7 @@ function App() {
             </Routes>
         </Suspense>
       </AnimatePresence>
-      
+      </div>
     </div>
    </>
   );

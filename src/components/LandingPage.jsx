@@ -42,7 +42,7 @@ const itemVariants = {
 // Lazy components for non-critical sections
 const FeatureCard = ({ icon, title, children }) => (
   <div className="glass p-6 flex flex-col items-start transform hover:-translate-y-2 transition-transform duration-300 rounded-2xl">
-    <div className="p-3 bg-purple-500/20 rounded-full mb-4">{icon}</div>
+    <div className="p-3 bg-sky-500/15 rounded-full mb-4">{icon}</div>
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-gray-300">{children}</p>
   </div>
@@ -77,7 +77,7 @@ const TestimonialCard = ({ quote, name, role, avatarSrc, avatarAlt }) => (
 
 const HowItWorksStep = ({ number, title, description }) => (
   <div className="flex items-start space-x-4">
-    <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-purple-600/30 border-2 border-purple-500 rounded-full font-bold text-xl">
+    <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-sky-500/20 border-2 border-sky-400/45 rounded-full font-bold text-xl">
       {number}
     </div>
     <div>
@@ -208,7 +208,7 @@ const LandingPage = () => {
           <Button
             asChild
             size="sm"
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold group hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-transform"
+            className="bg-gradient-to-r from-sky-500 to-cyan-600 text-white font-semibold group hover:from-sky-600 hover:to-cyan-700 transform hover:scale-105 transition-transform"
           >
             <Link to="/signup">Sign Up</Link>
           </Button>
@@ -238,15 +238,15 @@ const LandingPage = () => {
             >
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">All The Tools You Need To Plan Visually</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <FeatureCard icon={<Calendar className="w-8 h-8 text-purple-400" />} title="Visual Event Timeline">
+                <FeatureCard icon={<Calendar className="w-8 h-8 text-sky-300" />} title="Visual Event Timeline">
                   Ditch the boring text. Attach photos to your events and see your schedule come to life in a beautiful, scrollable
                   timeline.
                 </FeatureCard>
-                <FeatureCard icon={<Users className="w-8 h-8 text-purple-400" />} title="Group Trip Planning & Chat">
+                <FeatureCard icon={<Users className="w-8 h-8 text-sky-300" />} title="Group Trip Planning & Chat">
                   Coordinate plans with friends effortlessly. Share events, see who's attending, and use the integrated group chat to
                   finalize details.
                 </FeatureCard>
-                <FeatureCard icon={<Palette className="w-8 h-8 text-purple-400" />} title="Custom Themes & Notifications">
+                <FeatureCard icon={<Palette className="w-8 h-8 text-sky-300" />} title="Custom Themes & Notifications">
                   Make Wen yours with custom color themes. Stay on top of your schedule with smart, configurable notifications.
                 </FeatureCard>
               </div>

@@ -6,7 +6,7 @@ import React from 'react';
     const PrivacyPage = () => {
       const Section = ({ title, children }) => (
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-purple-300">{title}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-sky-200">{title}</h2>
           <div className="space-y-4">{children}</div>
         </section>
       );

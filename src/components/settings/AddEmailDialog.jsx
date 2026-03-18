@@ -67,7 +67,7 @@ import React, { useState } from 'react';
                 <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="bg-transparent hover:bg-white/10 border-white/20">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={loading} className="bg-gradient-to-r from-purple-500 to-pink-600">
+                <Button type="submit" disabled={loading} className="bg-gradient-to-r from-sky-500 to-cyan-600">
                   {loading ? <Loader2 className="animate-spin" /> : <Mail className="mr-2 h-4 w-4" />}
                   {loading ? 'Sending...' : 'Add Email'}
                 </Button>

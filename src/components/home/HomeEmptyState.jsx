@@ -33,7 +33,7 @@ import React from 'react';
                 <Button 
                   onClick={onCreateEvent}
                   size="lg" 
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg"
+                  className="bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-semibold shadow-lg"
                 >
                   Create Your First Event
                 </Button>

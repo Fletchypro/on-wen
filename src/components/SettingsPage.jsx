@@ -8,7 +8,7 @@ import DataManagementSettings from '@/components/settings/DataManagementSettings
 import AccountSettings from '@/components/settings/AccountSettings.jsx';
 import ThemeSettings from '@/components/settings/ThemeSettings.jsx';
 import BlockedUsersSettings from '@/components/settings/BlockedUsersSettings.jsx';
-import { useTheme } from '@/contexts/ThemeContext';
+import { appPageTitleClass } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LifeBuoy, ShieldCheck, FileText } from 'lucide-react';
 import ShareButton from '@/components/ShareButton';
@@ -28,7 +28,6 @@ const SettingsPage = ({
   deleteAllEvents,
   notificationPreferences, setNotificationPreferences, imageOpacity, setImageOpacity
 }) => {
-  const { theme } = useTheme();
   return (
     <motion.div
       className="p-4 md:p-6 pb-24 md:pb-6 space-y-6 max-w-5xl mx-auto w-full"
@@ -39,7 +38,7 @@ const SettingsPage = ({
     >
       <motion.div className="flex-shrink-0" variants={itemVariants}>
         <div className="mb-3 mt-10">
-          <h1 className={`text-4xl md:text-6xl font-bold tracking-tight ${theme.headerColor}`}>
+          <h1 className={appPageTitleClass}>
             Settings
           </h1>
         </div>

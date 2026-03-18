@@ -41,11 +41,11 @@ const VisibilityOption = ({ value, selectedValue, onChange, icon: Icon, label, d
     variant="ghost"
     onClick={() => !isReadOnly && onChange('visibility', value)}
     className={`flex-1 flex flex-col items-center justify-center p-3 h-auto rounded-lg transition-all text-center
-      ${selectedValue === value ? 'bg-purple-500/30 border-purple-500' : 'bg-white/10 border-transparent'}
-      border hover:bg-purple-500/20`}
+      ${selectedValue === value ? 'bg-sky-500/25 border-sky-400/50' : 'bg-white/10 border-transparent'}
+      border hover:bg-sky-500/15`}
     disabled={isReadOnly}
   >
-    <Icon size={20} className={`mb-1 ${selectedValue === value ? 'text-purple-400' : 'text-white/70'}`} />
+    <Icon size={20} className={`mb-1 ${selectedValue === value ? 'text-sky-300' : 'text-white/70'}`} />
     <span className="font-semibold text-sm text-white">{label}</span>
     <p className="text-xs text-white/60 mt-1">{description}</p>
   </Button>
@@ -175,7 +175,7 @@ const EventSettings = ({ formData, handleFieldChange, friendOptions, friendsLoad
           onChange={handleInputChange}
           placeholder="Add any additional notes..."
           rows={3}
-          className="w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all resize-none"
+          className="w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all resize-none"
           disabled={isReadOnly}
         />
       </FormField>

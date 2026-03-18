@@ -41,11 +41,11 @@ const MultiSelect = React.forwardRef(
         onKeyDown={handleKeyDown}
         className="overflow-visible bg-transparent"
       >
-        <div className="group border border-white/20 px-3 py-2 text-sm ring-offset-background rounded-xl focus-within:ring-2 focus-within:ring-purple-500">
+        <div className="group border border-white/20 px-3 py-2 text-sm ring-offset-background rounded-xl focus-within:ring-2 focus-within:ring-sky-500">
           <div className="flex gap-1 flex-wrap">
             {selected.map((option) => {
               return (
-                <Badge key={option.value} variant="secondary" className="bg-purple-500/80 text-white border-purple-500">
+                <Badge key={option.value} variant="secondary" className="bg-sky-600/85 text-white border-sky-400/50">
                   {option.label}
                   <button
                     className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -93,7 +93,7 @@ const MultiSelect = React.forwardRef(
                         setInputValue('');
                         onChange([...selected, option]);
                       }}
-                      className={'cursor-pointer text-white hover:!bg-purple-600/50'}
+                      className={'cursor-pointer text-white hover:!bg-sky-600/45'}
                     >
                       {option.label}
                     </CommandItem>

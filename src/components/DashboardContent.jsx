@@ -138,7 +138,7 @@ const DashboardContent = ({ events, setEvents, deleteEvent, onEditEvent, imageOp
     }
     return (
       <motion.div 
-        className="flex-1 overflow-hidden bg-black/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10 shadow-2xl"
+        className="flex-1 overflow-hidden glass-light rounded-2xl p-4 md:p-6 border border-white/10 shadow-xl"
         style={{ contain: 'layout paint' }} // Task 4: Contain wrapper
       >
         <div className="h-full overflow-y-auto pr-2">

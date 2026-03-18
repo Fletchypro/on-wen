@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 const UserCard = ({ user, actionButtons, onUnfriend, showEmail = false }) => (
   <div
-    className="relative p-6 bg-black/20 backdrop-blur-lg rounded-2xl flex flex-col items-center text-center border border-white/10 gap-4 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 h-full group"
+    className="relative p-6 bg-black/20 backdrop-blur-lg rounded-2xl flex flex-col items-center text-center border border-white/10 gap-4 shadow-lg hover:shadow-sky-500/20 transition-all duration-300 h-full group"
   >
     {onUnfriend && (
       <Tooltip>
@@ -29,7 +29,7 @@ const UserCard = ({ user, actionButtons, onUnfriend, showEmail = false }) => (
         </TooltipContent>
       </Tooltip>
     )}
-    <Avatar className="w-24 h-24 border-4 border-purple-400/50 shadow-lg transition-transform duration-300 group-hover:scale-105">
+    <Avatar className="w-24 h-24 border-4 border-sky-400/45 shadow-lg transition-transform duration-300 group-hover:scale-105">
       <AvatarImage src={user.avatar_url} alt={getDisplayName(user)} />
       <AvatarFallback className="bg-secondary text-foreground/70 text-3xl">{getInitials(user)}</AvatarFallback>
     </Avatar>
