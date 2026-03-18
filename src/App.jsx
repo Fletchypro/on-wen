@@ -292,8 +292,8 @@ const AuthLayout = ({ children }) => {
             <div className="fixed inset-0 -z-10 bg-gradient-to-br from-zinc-900 via-slate-900 to-zinc-950" aria-hidden />
             <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(255,255,255,0.06),transparent_50%)]" aria-hidden />
             <div className="fixed inset-0 bg-black/45 backdrop-blur-2xl saturate-150 -z-10" />
-            <div className="min-h-full flex flex-col justify-center items-center p-4 py-12 sm:py-16 md:p-8 md:py-24 w-full relative z-10">
-                <div className="w-full max-w-md px-1 sm:px-0">
+            <div className="min-h-[100dvh] flex flex-col justify-center items-center p-3 py-4 sm:p-4 sm:py-12 md:p-8 md:py-24 w-full relative z-10">
+                <div className="w-full max-w-md px-0 sm:px-1">
                     {children}
                 </div>
             </div>

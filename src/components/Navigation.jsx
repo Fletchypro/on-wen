@@ -55,31 +55,36 @@ const MobileNavButton = ({ icon: Icon, isActive, onClick, notificationCount = 0,
     aria-label={label}
     title={label}
     onClick={onClick}
-    className="relative flex flex-1 min-w-0 basis-0 flex-col items-center justify-center h-full pt-1 pb-2 gap-0.5 active:opacity-90"
+    className="relative flex flex-1 min-w-0 basis-0 flex-col items-center justify-center h-full active:opacity-90"
     whileTap={{ scale: 0.92 }}
     style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
   >
-    <span className="relative inline-flex items-center justify-center">
+    <span className="flex flex-col items-center justify-center gap-1.5">
+      <span className="relative inline-flex items-center justify-center">
         <Icon
           className={cn(
             'h-6 w-6 transition-colors shrink-0',
             isActive ? 'text-white' : 'text-white/50'
           )}
           strokeWidth={2}
+        />
+        {!!notificationCount && (
+          <span
+            className="absolute -top-1 -right-2 flex min-w-[16px] h-4 px-0.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white border border-white/20 z-10"
+            aria-hidden
+          >
+            {notificationCount > 9 ? '9+' : notificationCount}
+          </span>
+        )}
+      </span>
+      <span
+        className={cn(
+          'h-0.5 w-5 rounded-full shrink-0',
+          isActive ? 'bg-white/90 shadow-[0_0_6px_rgba(255,255,255,0.4)]' : 'bg-transparent'
+        )}
+        aria-hidden
       />
-      {!!notificationCount && (
-        <span
-          className="absolute -top-1 -right-2 flex min-w-[16px] h-4 px-0.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white border border-white/20 z-10"
-          aria-hidden
-        >
-          {notificationCount > 9 ? '9+' : notificationCount}
-        </span>
-      )}
     </span>
-    {isActive && (
-      <span className="h-0.5 w-5 rounded-full bg-white/90 mt-auto mb-0.5 shadow-[0_0_6px_rgba(255,255,255,0.4)]" />
-    )}
-    {!isActive && <span className="h-0.5 w-5 rounded-full bg-transparent mt-auto mb-0.5" aria-hidden />}
   </motion.button>
 );
 

@@ -62,7 +62,7 @@ const EmailSignInForm = ({ onSwitchToPhoneSignIn }) => {
             animate="visible"
             exit="exit"
             onSubmit={handleSignIn}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
         >
             {error && (
                 <motion.div variants={itemVariants} className="bg-red-900/50 border border-red-500/50 text-red-300 p-3 rounded-lg flex items-center gap-3">
@@ -137,7 +137,7 @@ const PhoneSignInForm = ({ onSwitchToEmailSignIn }) => {
             animate="visible"
             exit="exit"
             onSubmit={handleSignIn}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
         >
             {error && (
                 <motion.div variants={itemVariants} className="bg-red-900/50 border border-red-500/50 text-red-300 p-3 rounded-lg flex items-center gap-3">
@@ -214,38 +214,38 @@ const SignInPage = () => {
             </Helmet>
             
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full max-w-sm mx-auto"
             >
-                <div className="text-center mb-8">
+                <div className="text-center mb-3 sm:mb-6">
                     <Link to="/">
-                        <motion.img 
-                            src={LOGO_URL} 
-                            alt="Wen Logo" 
-                            className="w-40 mx-auto" 
-                            initial={{ opacity: 0, y: -20 }}
+                        <motion.img
+                            src={LOGO_URL}
+                            alt="Wen Logo"
+                            className="w-28 h-auto mx-auto sm:w-40"
+                            initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
+                            transition={{ delay: 0.1, duration: 0.4 }}
                         />
                     </Link>
                 </div>
-                <div className="liquid-glass-elevated p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-cyan-400/20 shadow-2xl shadow-cyan-950/30">
-                    <div className="text-center mb-8">
+                <div className="liquid-glass-elevated p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-cyan-400/20 shadow-2xl shadow-cyan-950/30">
+                    <div className="text-center mb-4 sm:mb-6">
                         <motion.h1
-                            initial={{ opacity: 0, y: -10 }}
+                            initial={{ opacity: 0, y: -8 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="text-3xl sm:text-4xl font-bold text-white tracking-tight"
+                            transition={{ delay: 0.15 }}
+                            className="text-2xl sm:text-4xl font-bold text-white tracking-tight"
                         >Welcome Back</motion.h1>
                         <motion.p
-                            initial={{ opacity: 0, y: -10 }}
+                            initial={{ opacity: 0, y: -8 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="text-neutral-400 mt-2"
-                        >Sign in to continue your journey.</motion.p>
+                            transition={{ delay: 0.2 }}
+                            className="text-neutral-400 mt-1 text-sm sm:text-base"
+                        >Sign in to continue.</motion.p>
                     </div>
                     <AnimatePresence mode="wait">
                         {usePhoneSignIn ? (
@@ -259,12 +259,12 @@ const SignInPage = () => {
                         )}
                     </AnimatePresence>
                     <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                        className="mt-8 text-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.25 }}
+                        className="mt-4 sm:mt-6 text-center"
                     >
-                        <p className="text-sm text-neutral-400">
+                        <p className="text-xs sm:text-sm text-neutral-400">
                             Don't have an account?{' '}
                             <Link to="/signup" className="font-semibold text-sky-300 hover:text-sky-200 transition-colors">Sign Up</Link>
                         </p>
